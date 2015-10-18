@@ -1,34 +1,38 @@
-<ion-view view-title="订单确认">
+<ion-view view-title="订单确认" hide-tabs="true">
   <ion-content>
     <div class="list card">
       <div class="item item-divider">选择地址</div>
-      <div class="item item-body">
-        <div class="icon icon-left ion-ios-location-outline"></div>
+      <a class="item item-icon-left item-icon-right">
+        <div class="icon ion-ios-location"></div>
         <h2 class="royal title">上海市平乐路</h2>
+
         <p>18612112092</p>
-      </div>
+
+        <div class="icon icon-right ion-ios-location-outline button-large"></div>
+      </a>
     </div>
 
     <div class="list card">
       <div class="item item-divider">服务类型</div>
-      <div class="item item-body">
-        日常保洁
-      </div>
-      <div class="item item-body">
-        <div class="icon icon-left ion-ios-time-outline"></div>
+
+      <a class="item item-icon-left item-icon-right">
+        <div class="icon ion-ios-keypad"></div>
+        <h2>服务到家</h2>
+      </a>
+
+      <a class="item  item-icon-left item-icon-right">
+        <div class="icon ion-ios-clock"></div>
         <input type="text" disabled="true" placeholder="请选择服务时间">
-        <div class="icon icon-right ion-ios-arrow-right"></div>
-      </div>
 
-      <div class="item item-body">
-        <div class="icon icon-left ion-ios-people-outline"></div>
+        <div class="icon icon-right ion-ios-arrow-right button-large"></div>
+      </a>
+
+      <a class="item item-icon-left item-icon-right">
+        <div class="icon ion-ios-person"></div>
         <input type="text" disabled="true" placeholder="选择保洁师">
-        <div class="icon icon-right ion-ios-arrow-right"></div>
-      </div>
 
-
-
+        <div class="icon icon-right ion-ios-arrow-right button-large"></div>
+      </a>
     </div>
-
   </ion-content>
 </ion-view>

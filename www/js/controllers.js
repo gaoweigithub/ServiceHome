@@ -105,7 +105,7 @@ angular.module('homeservice.controllers', [])
   })
 
 //价格计划
-  .controller('rateplan', function ($rootScope, $scope, $stateParams, RATE_PLAN, SERVICE) {
+  .controller('rateplan', function ($rootScope, $scope, $stateParams, RATE_PLAN, SERVICE,$state) {
     console.log($rootScope.hideTabs);
     console.log($rootScope.cityID);
     //选中的rateplanid
@@ -257,6 +257,11 @@ angular.module('homeservice.controllers', [])
       }
     }
     console.log($scope.rateplan);
+
+    $scope.confirmorder_01=function()
+    {
+      $state.go('tab.confirmorder_01',{serviceid:1,serviceplan_id:1,servicename:1,rateplanid:1});
+    }
   })
 .controller('confirmorder_01',function($scope,$stateParams)
   {
