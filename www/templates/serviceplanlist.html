@@ -1,0 +1,16 @@
+<ion-view view-title="{{ServiceName}}">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right"
+                ng-repeat="item in ServicePlanList" type="item-text-wrap"
+                href="#tab/homepage/rateplan/{{item.SERVICE_ID}}/{{item.SERVICE_PLAN_ID}}/{{item.SERVICE_PLAN_NAME}}">
+        <img ng-src="{{item.SERVICE_PLAN_URL}}">
+
+        <h2>{{item.SERVICE_PLAN_NAME}}</h2>
+
+        <p>{{item.SERVICE_PLAN_DESC}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
+

@@ -1,6 +1,6 @@
-*.class
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
 
-# Package Files #
-*.jar
-*.war
-*.ear
+node_modules/
+platforms/
+plugins/

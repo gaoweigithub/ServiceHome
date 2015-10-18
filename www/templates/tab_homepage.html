@@ -1,0 +1,81 @@
+<ion-view view-title="服务到家">
+  <ion-nav-buttons side="left">
+    <a class="icon ion-chevron-down" ng-click="modal.show()">{{cityName}}</a>
+  </ion-nav-buttons>
+  <!--<ion-nav-bar animation="nav-title-slide-ios7"-->
+               <!--type="bar-positive"-->
+               <!--back-button-type="button-icon"-->
+               <!--back-button-icon="ion-arrow-left-c"></ion-nav-bar>-->
+
+  <!--<ion-nav-view animation="slide-left-right"></ion-nav-view>-->
+  <ion-content>
+    <ion-slide-box does-continue="true" show-pager="true" auto-play="true"
+                   active-slide="index">
+      <ion-slide ng-repeat="x in advs">
+        <img src={{x.url}}>
+      </ion-slide>
+    </ion-slide-box>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right"
+                ng-repeat="item in BasicServices" type="item-text-wrap"
+                href="#tab/homepage/serviceplanlist/{{item.SERVICE_ID}}/{{item.SERVICE_NAME}}">
+        <img ng-src="{{item.PICURL}}">
+
+        <h2>{{item.SERVICE_NAME}}</h2>
+
+        <p>{{item.SERVICE_ITEMS}}</p>
+      </ion-item>
+    </ion-list>
+    <script id="modal.html" type="text/ng-template">
+      <div class="modal" ng-controller="ModalCtrl">
+        <ion-header-bar class="bar bar-header">
+          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+          <h1 class="title">位置</h1>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list card">
+            <div class="item item-divider">定位城市</div>
+            <div class="item item-body">
+              <button class="button button-balanced" ng-click="reLocat()">{{selectCityName}}</button>
+            </div>
+          </div>
+          <div class="list card">
+            <div class="item item-divider">目前开通城市</div>
+            <div class="item item-body">
+              <ion-list>
+                <ion-item ng-repeat="item in getOpenCityList()" type="item-text-wrap"
+                          ng-click="onTouchCity(item.cityid,item.cityname);modal.hide()">
+                  <h>{{item.cityname}}</h>
+                </ion-item>
+              </ion-list>
+            </div>
+          </div>
+        </ion-content>
+      </div>
+    </script>
+  </ion-content>
+</ion-view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

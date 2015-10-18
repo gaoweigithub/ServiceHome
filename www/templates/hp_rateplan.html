@@ -1,0 +1,67 @@
+<ion-view view-title="{{ServiceName}}" hide-tabs="true">
+  <ion-content class="padding">
+    <div class="list card">
+      <div class="item item-body rateplan_pic">
+        <img ng-src="{{serviceplan.SERVICE_PLAN_URL}}" class="text-center"/>
+      </div>
+    </div>
+
+    <div class="list card" ng-show="ISShowSelected">
+      <div class="item item-divider">已选项目，总价：{{SelectItem.allcost| currency:'￥'}}</div>
+      <label class="item" ng-show="SelectItem.showname">
+        <h1>{{SelectItem.rateplan_name}}</h1>
+      </label>
+      <label class="item item-input" ng-show="SelectItem.showquantity">
+        <span class="input-label positive">数量</span>
+        <input type="number" pattern="[0-9]+" ng-model="SelectItem.quantity">
+        <span class="input-label positive">{{SelectItem.unit}}</span>
+      </label>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">价格</div>
+      <ion-list>
+        <ion-radio radio-color="balanced" ng-repeat="item in RatePlan" ng-value="item.rateplan_id"
+                   ng-model="SelectItem.rateplan_id" ng-click="confirmItem(item)">
+          <p>{{item.rateplan_id}}'/'{{item.rateplan_name}}'/'{{item.cost}}</p>
+        </ion-radio>
+      </ion-list>
+    </div>
+
+    <div class="list card">
+      <div class="item item-divider">服务范围</div>
+      <div class="item item-body">
+        {{serviceplan.SERVICE_LIMIT}}
+      </div>
+    </div>
+
+    <div class="list card">
+      <div class="item item-divider">服务标准</div>
+      <div class="item item-body">
+        {{serviceplan.SERVICE_STANDARD}}
+      </div>
+    </div>
+
+    <br/>
+    <br/>
+  </ion-content>
+  <!--<ion-footer-bar>-->
+  <!--<button class="button button-full button-large button-calm ">立即预约</button>-->
+  <!--</ion-footer-bar>-->
+  <div class="bar bar-footer">
+
+    <div class="title button button-assertive button-full">立即预约</div>
+  </div>
+</ion-view>
+
+
+
+
+
+
+
+
+
+
+
+
+
