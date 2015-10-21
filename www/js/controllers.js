@@ -105,7 +105,7 @@ angular.module('homeservice.controllers', [])
   })
 
 //价格计划
-  .controller('rateplan', function ($rootScope, $scope, $stateParams, RATE_PLAN, SERVICE,$state) {
+  .controller('rateplan', function ($rootScope, $scope, $stateParams, RATE_PLAN, SERVICE, $state) {
     console.log($rootScope.hideTabs);
     console.log($rootScope.cityID);
     //选中的rateplanid
@@ -168,7 +168,7 @@ angular.module('homeservice.controllers', [])
       }
       return $scope.SelectItem.allcost;
     };
-    $scope.$watch(computeCost,function(newval,oldval){
+    $scope.$watch(computeCost, function (newval, oldval) {
       console.log('allcost');
       console.log(newval);
     });
@@ -210,7 +210,7 @@ angular.module('homeservice.controllers', [])
         $scope.SelectItem.rateplan_name = '';
         $scope.SelectItem.showname = true;
         $scope.SelectItem.price = $scope.RatePlan[0].price;
-        $scope.SelectItem.unit=$scope.RatePlan[0].unit;
+        $scope.SelectItem.unit = $scope.RatePlan[0].unit;
       }
       else {
         $scope.canSwipe = true;
@@ -246,7 +246,7 @@ angular.module('homeservice.controllers', [])
         $scope.SelectItem.rateplan_name = $scope.RatePlan[0].rateplan_name;
         $scope.SelectItem.showname = true;
         $scope.SelectItem.unit = $scope.RatePlan[0].unit;
-        $scope.SelectItem.price = $scope.RatePlan[0].type=='1'?$scope.RatePlan[0].price:$scope.RatePlan[0].ONE_COST;
+        $scope.SelectItem.price = $scope.RatePlan[0].type == '1' ? $scope.RatePlan[0].price : $scope.RatePlan[0].ONE_COST;
         $scope.SelectItem.type = $scope.RatePlan[0].type == '1' ? 1 : 2;
         if ($scope.RatePlan[0].type == '1') {
           $scope.SelectItem.showquantity = true;
@@ -258,12 +258,64 @@ angular.module('homeservice.controllers', [])
     }
     console.log($scope.rateplan);
 
-    $scope.confirmorder_01=function()
-    {
-      $state.go('tab.confirmorder_01',{serviceid:1,serviceplan_id:1,servicename:1,rateplanid:1});
+    $scope.confirmorder_01 = function () {
+      $state.go('tab.confirmorder_01', {serviceid: 1, serviceplan_id: 1, servicename: 1, rateplanid: 1});
     }
   })
-.controller('confirmorder_01',function($scope,$stateParams)
-  {
+  .controller('confirmorder_01', function ($scope, $stateParams) {
 
+  })
+  //百度地图定位
+  .controller('locatesite', function ($scope) {
+    $scope.val = "";
+    $scope.datas = Array();
+
+//        $scope.address="http://api.map.baidu.com/api?v=2.0&ak=138rlkCinuooUA7fZ8yYEIdg";
+    $scope.lastAddress = {lng: 116.331398, lat: 39.897445};
+    var map = new BMap.Map('allmap');
+    var point = new BMap.Point($scope.lastAddress.lng, $scope.lastAddress.lat);
+    map.centerAndZoom(point, 12);
+    var geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function (r) {
+      if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+        var mk = new BMap.Marker(r.point);
+        map.addOverlay(mk);
+        map.centerAndZoom(r.point, 12);
+        console.log(r.point);
+      }
+      else {
+      }
+    }, {enableHighAccuracy: true});
+    var options = {
+      onSearchComplete: function (results) {
+        // 判断状态是否正确
+        if (local.getStatus() == BMAP_STATUS_SUCCESS) {
+          var s = [];
+          for (var i = 0; i < results.getCurrentNumPois() && i <= 6; i++) {
+            s.push({
+              title: results.getPoi(i).title,
+              address: results.getPoi(i).address,
+              point: results.getPoi(i).point
+            });
+          }
+          if (s.length > 1) {
+            console.log(s[0].point);
+            map.clearOverlays();    //清除地图上所有覆盖物
+            map.centerAndZoom(s[0].point, 18);
+            map.addOverlay(new BMap.Marker(s[0].point));
+          }
+          $scope.datas = s;
+          $scope.$apply();
+        }
+      }
+    };
+    var local = new BMap.LocalSearch(map, options);
+    $scope.textChange = function (val) {
+      console.log('hh');
+      local.search(val);
+    };
+    $scope.locatesite=function()
+    {
+      $state.go('tab.locatesite');
+    }
   })
