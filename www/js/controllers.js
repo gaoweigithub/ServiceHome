@@ -263,10 +263,19 @@ angular.module('homeservice.controllers', [])
     }
   })
   .controller('confirmorder_01', function ($scope, $stateParams) {
-
+    console.log('111');
+    $scope.extraneeds = [
+      {value: false, desc: '重点打扫厨房', id: 1},
+      {value: false, desc: '阿姨不要话多', id: 2},
+      {value: false, desc: '上门前打个电话', id: 3},
+      {value: false, desc: '家有爱宠', id: 4}
+    ];
+  })
+  .controller('selectservicetime', function ($scope) {
+    $scope.times = [2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
   })
   //百度地图定位
-  .controller('locatesite', function ($scope) {
+  .controller('locatesite', function ($scope, $ionicNavBarDelegate, $rootScope) {
     $scope.val = "";
     $scope.datas = Array();
 
@@ -298,7 +307,7 @@ angular.module('homeservice.controllers', [])
               point: results.getPoi(i).point
             });
           }
-          if (s.length > 1) {
+          if (s.length >= 1) {
             console.log(s[0].point);
             map.clearOverlays();    //清除地图上所有覆盖物
             map.centerAndZoom(s[0].point, 18);
@@ -314,8 +323,13 @@ angular.module('homeservice.controllers', [])
       console.log('hh');
       local.search(val);
     };
-    $scope.locatesite=function()
-    {
+    $scope.locatesite = function () {
       $state.go('tab.locatesite');
+    };
+    $rootScope.newPlace = null;
+    $scope.confirmsite = function (placename, address, lng, lat) {
+      $rootScope.newPlace = {placename: placename, address: address, lng: lng, lat: lat};
+      console.log(placename + '/' + address + '/' + lng + '/' + lat);
+      $ionicNavBarDelegate.back();
     }
   })

@@ -1,4 +1,4 @@
-<ion-view view-title="{{ServiceName}}" hide-tabs="true">
+<ion-view view-title="{{ServiceName}}">
   <ion-content class="padding">
     <div class="list card">
       <div class="item item-body rateplan_pic">
@@ -13,7 +13,7 @@
       </label>
       <label class="item item-input" ng-show="SelectItem.showquantity">
         <span class="input-label positive">数量</span>
-        <input type="number" pattern="[0-9]+" ng-model="SelectItem.quantity">
+        <input type="number" pattern="[0-9]+" ng-model="SelectItem.quantity" min="1">
         <span class="input-label positive">{{SelectItem.unit}}</span>
       </label>
     </div>
@@ -47,10 +47,13 @@
   <!--<ion-footer-bar>-->
   <!--<button class="button button-full button-large button-calm ">立即预约</button>-->
   <!--</ion-footer-bar>-->
-  <div class="bar bar-footer">
+  <!--<div class="bar bar-footer">-->
 
-    <div class="title button button-assertive button-full" ng-click="confirmorder_01()">立即预约</div>
-  </div>
+    <!--<div class="title button button-assertive button-full" ng-click="confirmorder_01()">立即预约</div>-->
+  <!--</div>-->
+  <ion-footer-bar class="bar-assertive">
+    <div class="title" style="align-items:center" ng-click="confirmorder_01()">立即预约</div>
+  </ion-footer-bar>
 </ion-view>
 
 

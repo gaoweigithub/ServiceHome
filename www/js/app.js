@@ -122,7 +122,17 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
           }
         }
       }
-
+    )
+      //选择服务时长和时间段
+      .state('tab.selectservicetime',{
+        url:'/homepage/selectservicetime',
+        views:{
+          'tab-homepage':{
+            templateUrl:'templates/selectservicetime.html',
+            controller:'selectservicetime'
+          }
+        }
+      }
     )
     ;
     $urlRouterProvider.otherwise('/tab/homepage');
