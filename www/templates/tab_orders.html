@@ -1,25 +1,20 @@
 <ion-view view-title="订单">
   <ion-content>
+    <ion-refresher pulling-icon="ion-ios-reload" pulling-text="松开更新" on-refresh="doRefresh()"></ion-refresher>
     <ion-list>
-      <a class="item">
-        <div class="row item">
-          <div class="col">服务到家</div>
-          <div class="col col-60"></div>
-          <div class="col text-right"><span style="color: red">服务到家</span></div>
+      <a class="item" ng-repeat="item in Orders">
+        <div class=" item padding  text-right">
+          <span class="" style="float: left">{{item.SERVICE_NAME}}</span>
+          <span style="color: red;">{{item.STATUS_NAME}}</span>
         </div>
-        <div class="item">
-          <div class="row ">
-            <div class=" icon ion-arrow-down-a">&nbsp;诸新一村</div>
-            <!--<div class="col">诸新一村</div>-->
+          <div class="item ">
+            <div class=" icon ion-ios-location-outline">&nbsp;{{item.SERVICE_PLACE}}</div>
           </div>
-          <div class="row ">
-            <div class="icon ion-arrow-down-a">&nbsp;2015-9-2</div>
+          <div class="item ">
+            <div class="icon ion-ios-time-outline">&nbsp;{{item.ACTUAL_START_TIME}}&nbsp;到&nbsp;{{item.ACTUAL_END_TIME}}</div>
           </div>
-        </div>
-        <div class="row item">
-          <div class="col">
-            <div class="button button-assertive button-small" style="float: right">取消订单</div>
-          </div>
+        <div class=" item padding">
+            <div class="button button-assertive button-small" style="float: right" ng-click="orderfunction(item.BUTTON_FUNCTION)" >{{item.BUTTON_TEXT}}</div>
         </div>
       </a>
     </ion-list>

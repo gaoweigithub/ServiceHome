@@ -60,6 +60,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
       //个人中心
       .state('tab.usercenter',{
         url:'/usercenter',
+        cache:false,
         abstract:false,
         views:{
           'tab-usercenter':{
@@ -134,6 +135,15 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         }
       }
     )
+      .state('tab.serviceplacelist',{
+        url:'/serviceplacelist',
+        views:{
+          'tab-usercenter':{
+            templateUrl:'templates/serviceplacelist.html',
+            controller:'serviceplacelist'
+          }
+        }
+      })
     ;
     $urlRouterProvider.otherwise('/tab/homepage');
 
@@ -155,6 +165,22 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
       }
     };
   })
+  .directive('focusMe', function($timeout) {
+    return {
+      scope: { trigger: '=focusMe' },
+      link: function(scope, element) {
+        scope.$watch('trigger', function(value) {
+          if(value === true) {
+            //console.log('trigger',value);
+            //$timeout(function() {
+            element[0].focus();
+            scope.trigger = false;
+            //});
+          }
+        });
+      }
+    };
+  })
   .directive('appMap', function () {
     return {
       restrict: "E",
@@ -171,7 +197,6 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         address: "@"
       },
       link: function (scope, element, attrs) {
-
 
       }
     }

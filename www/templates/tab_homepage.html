@@ -2,13 +2,9 @@
   <ion-nav-buttons side="left">
     <a class="icon ion-chevron-down" ng-click="modal.show()">{{cityName}}</a>
   </ion-nav-buttons>
-  <!--<ion-nav-bar animation="nav-title-slide-ios7"-->
-               <!--type="bar-positive"-->
-               <!--back-button-type="button-icon"-->
-               <!--back-button-icon="ion-arrow-left-c"></ion-nav-bar>-->
-
-  <!--<ion-nav-view animation="slide-left-right"></ion-nav-view>-->
   <ion-content>
+    <ion-refresher pulling-icon="ion-ios-reload" pulling-text="松开更新" on-refresh="doRefresh()"></ion-refresher>
+
     <ion-slide-box does-continue="true" show-pager="true" auto-play="true"
                    active-slide="index">
       <ion-slide ng-repeat="x in advs">

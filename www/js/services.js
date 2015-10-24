@@ -261,9 +261,90 @@ angular.module('homeservice.services', [])
       reLocat: reLocat
     }
   })
+  .factory('ORDERS', function () {
+    var Orders = [
+      {
+        ORDERID: 1,
+        STATUS: 1,
+        STATUS_NAME: '待支付',
+        SERVICE_NAME: '家庭保洁',
+        SERVICE_PLACE: '诸新一村103号',
+        RATE_PLAN_ID: 10,
+        ACTUAL_START_TIME: '2015-10-24 17:00',
+        ACTUAL_END_TIME: '2015-10-24 19:00',
+        EXPIRE_TIME: '2015-10-24 20:00',
+        BUTTON_TEXT: '去支付',
+        BUTTON_FUNCTION: 'payorder',
+        EXTRANEEDS: '家有宠物',
+        PRICE: 345
+      }
+    ];
+    var getOrders = function (status) {
+      return Orders;
+    }
+    var cancelOrder = function (orderid) {
+      //todo
+    }
+    return {
+      getOrders: getOrders,
+      cancelOrder: cancelOrder
+    }
+  })
+  .factory('SERVICE_PLACE', function () {
+    var servicePlaceList = [
+      {
+        SERVICE_PLACE_ID: 1,
+        SERVICE_PLACE_NAME: '诸新一村103号',
+        SERVICE_PLACE_ADDRESS: '上海市平乐路103号',
+        LNG: 121,
+        LAT: 31
+      },
+      {
+        SERVICE_PLACE_ID: 2,
+        SERVICE_PLACE_NAME: '凌空SOHO',
+        SERVICE_PLACE_ADDRESS: '上海市闵行区金钟路广顺路',
+        LNG: 121,
+        LAT: 31
+      }
+    ];
 
-
-
+    var getServicePlaceList=function()
+    {
+      return servicePlaceList;
+    }
+    var deleteServicePlace= function (id) {
+      if(servicePlaceList!=null)
+      {
+        for(i=0;i<servicePlaceList.length;i++)
+        {
+          if(servicePlaceList[i].SERVICE_PLACE_ID==id)
+          {
+            servicePlaceList.splice(i,1);
+          }
+        }
+      }
+    }
+    return {
+      getServicePlaces:getServicePlaceList,
+      deleteServicePlace:deleteServicePlace
+    }
+  })
+  .factory('ls',['$window',function($window){
+    return {
+      set: function(key, value) {
+        $window.localStorage[key] = value;
+      },
+      get: function(key, defaultValue) {
+        return $window.localStorage[key] || defaultValue;
+      },
+      setObject: function(key, value) {
+        $window.localStorage[key] = JSON.stringify(value);
+      },
+      getObject: function(key) {
+        return JSON.parse($window.localStorage[key] || '{}');
+      }
+    }
+  }])
 
 
 
