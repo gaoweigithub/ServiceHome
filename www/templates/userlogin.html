@@ -1,14 +1,18 @@
-<ion-view view-title="手机绑定">
-  <ion-content>
-    <ion-list>
-      <label class="item item-input">
-        <input ng-model="UserData.phone" type="text" maxlength="11" placeholder="请输入手机号">
-        <button class="button" ng-click="sendConfirmNo()">获取验证码</button>
-      </label>
-      <label class="item item-input">
-        <input ng-model="UserData.matchno" type="text" placeholder="请输入验证码" maxlength="5">
-      </label>
-      <button class="button button-full button-positive" ng-click="ConfirmLogin()" >确认</button>
-    </ion-list>
+<ion-view title="Login">
+  <ion-content padding="true" class="has-header">
+    <form class="list">
+      <ion-list>
+        <label class="item item-input">
+          <!--<span class="input-label">Username</span>-->
+          <input type="text" placeholder="请输入手机号">
+          <div class="button button-balanced" ng-click="sendConfirmNo()">发送验证码</div>
+        </label>
+        <label class="item item-input">
+          <!--<span class="input-label">Password</span>-->
+          <input type="password" placeholder="请输入验证码">
+        </label>
+      </ion-list>
+      <button class="button button-calm button-block " ng-click="ConfirmLogin()">确定</button>
+    </form>
   </ion-content>
 </ion-view>

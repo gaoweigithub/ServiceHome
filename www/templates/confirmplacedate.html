@@ -2,22 +2,28 @@
   <ion-content>
     <div class="list card">
       <div class="item item-divider">选择地址和时间</div>
-      <a class="item item-icon-left item-icon-right" href="#tab/homepage/locatesite">
-        <div class="icon ion-ios-location"></div>
-        <h2 class="royal title"></h2>
+      <a class="item item-icon-left item-icon-right" href="#tab/serviceplacelist_select">
+        <div class="icon ion-ios-location-outline"></div>
+        <h2 class="royal title">{{selectedPlace.SERVICE_PLACE_NAME}}</h2>
 
-        <p>18612112092</p>
+        <p>{{selectedPlace.PHONE}}</p>
 
         <div class="icon icon-right ion-ios-arrow-right button-large"></div>
       </a>
 
       <a class="item  item-icon-left item-icon-right" href="#tab/homepage/selectservicetime">
-        <div class="icon ion-ios-clock"></div>
+        <div class="icon ion-ios-clock-outline"></div>
         <h2>请选择服务时长</h2>
 
         <div class="icon icon-right ion-ios-arrow-right button-large"></div>
       </a>
 
+      <a class="item  item-icon-left item-icon-right">
+        <div class="icon ion-ios-time-outline"></div>
+        <h2>请选择服务时间</h2>
+
+        <div class="icon icon-right ion-ios-arrow-right button-large"></div>
+      </a>
 
     </div>
     <ion-list>

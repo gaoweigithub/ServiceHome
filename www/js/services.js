@@ -261,6 +261,7 @@ angular.module('homeservice.services', [])
       reLocat: reLocat
     }
   })
+  //订单列表
   .factory('ORDERS', function () {
     var Orders = [
       {
@@ -290,12 +291,15 @@ angular.module('homeservice.services', [])
       cancelOrder: cancelOrder
     }
   })
+  //服务地址
   .factory('SERVICE_PLACE', function () {
     var servicePlaceList = [
       {
         SERVICE_PLACE_ID: 1,
         SERVICE_PLACE_NAME: '诸新一村103号',
         SERVICE_PLACE_ADDRESS: '上海市平乐路103号',
+        SERVICE_PLACE_ADDRESS_USERINPUT:'',
+        PHONE:18612112092,
         LNG: 121,
         LAT: 31
       },
@@ -303,6 +307,8 @@ angular.module('homeservice.services', [])
         SERVICE_PLACE_ID: 2,
         SERVICE_PLACE_NAME: '凌空SOHO',
         SERVICE_PLACE_ADDRESS: '上海市闵行区金钟路广顺路',
+        SERVICE_PLACE_ADDRESS_USERINPUT:'',
+        PHONE:18612112092,
         LNG: 121,
         LAT: 31
       }
@@ -324,11 +330,30 @@ angular.module('homeservice.services', [])
         }
       }
     }
+    //获取默认地址，即上一次的服务地址
+    var getLastUseServicePlace=function()
+    {
+      if(servicePlaceList!=null&&servicePlaceList.length>0)
+      {
+        return servicePlaceList[0];
+      }
+      else
+      {
+        return null;
+      }
+    }
+    var addNewPlace=function(newplace)
+    {
+      servicePlaceList.push(newplace);
+    }
     return {
       getServicePlaces:getServicePlaceList,
-      deleteServicePlace:deleteServicePlace
+      deleteServicePlace:deleteServicePlace,
+      getLastUseServicePlace:getLastUseServicePlace,
+      addNewPlace:addNewPlace
     }
   })
+  //windowlocalstorage
   .factory('ls',['$window',function($window){
     return {
       set: function(key, value) {

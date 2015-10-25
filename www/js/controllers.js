@@ -333,8 +333,9 @@ angular.module('homeservice.controllers', [])
       $state.go('tab.confirmorder_01', {serviceid: 1, serviceplan_id: 1, servicename: 1, rateplanid: 1});
     }
   })
-  .controller('confirmorder_01', function ($scope, $stateParams) {
+  .controller('confirmorder_01', function ($scope, $rootScope, $stateParams, SERVICE_PLACE) {
     console.log('111');
+    $rootScope.selectedPlace = SERVICE_PLACE.getLastUseServicePlace();
     $scope.extraneeds = [
       {value: false, desc: '重点打扫厨房', id: 1},
       {value: false, desc: '阿姨不要话多', id: 2},
@@ -346,26 +347,49 @@ angular.module('homeservice.controllers', [])
     $scope.times = [2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
   })
   //百度地图定位
-  .controller('locatesite', function ($scope, $ionicNavBarDelegate, $rootScope) {
+  .controller('locatesite', function ($scope, $ionicNavBarDelegate, $rootScope, ls) {
     $scope.val = "";
     $scope.datas = Array();
 
 //        $scope.address="http://api.map.baidu.com/api?v=2.0&ak=138rlkCinuooUA7fZ8yYEIdg";
     $scope.lastAddress = {lng: 116.331398, lat: 39.897445};
     var map = new BMap.Map('allmap');
-    var point = new BMap.Point($scope.lastAddress.lng, $scope.lastAddress.lat);
-    map.centerAndZoom(point, 12);
-    var geolocation = new BMap.Geolocation();
-    geolocation.getCurrentPosition(function (r) {
-      if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-        var mk = new BMap.Marker(r.point);
-        map.addOverlay(mk);
-        map.centerAndZoom(r.point, 12);
-        console.log(r.point);
-      }
-      else {
-      }
-    }, {enableHighAccuracy: true});
+    //var point = new BMap.Point($scope.lastAddress.lng, $scope.lastAddress.lat);
+    //var map=ls.getObject('baidumap', null);
+    var lastPlace = ls.getObject('lastPoint', null);
+    //if(map!=null&&map!=undefined)
+    //{
+    //  console.log('findmap');
+    //}
+    //else
+    //{
+    //  console.log('not find map');
+    //  map = new BMap.Map('allmap');
+    //  ls.setObject('baidumap',map);
+    //}
+    if (lastPlace != null && lastPlace != undefined&&lastPlace.lng!=undefined) {
+      console.log('find');
+      console.log(lastPlace);
+      var point = new BMap.Point(lastPlace.lng, lastPlace.lat);
+      map.centerAndZoom(point, 12);
+    }
+    else {
+      console.log('not find');
+      var geolocation = new BMap.Geolocation();
+      geolocation.getCurrentPosition(function (r) {
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+          var mk = new BMap.Marker(r.point);
+          map.addOverlay(mk);
+          map.centerAndZoom(r.point, 12);
+          ls.setObject('lastPoint', r.point);
+          console.log(r.point);
+        }
+        else {
+        }
+      }, {enableHighAccuracy: true});
+    }
+
+
     var options = {
       onSearchComplete: function (results) {
         // 判断状态是否正确
@@ -394,18 +418,20 @@ angular.module('homeservice.controllers', [])
       console.log('hh');
       local.search(val);
     };
-    $scope.locatesite = function () {
-      $state.go('tab.locatesite');
-    };
-    $rootScope.newPlace = null;
-    $scope.confirmsite = function (placename, address, lng, lat) {
-      $rootScope.newPlace = {placename: placename, address: address, lng: lng, lat: lat};
-      console.log(placename + '/' + address + '/' + lng + '/' + lat);
+    $scope.confirmsite = function (d) {
+      //$rootScope.newPlace = {placename: placename, address: address, lng: lng, lat: lat};
+      $rootScope.addNewPlace.SERVICE_PLACE_NAME= d.title;
+      $rootScope.addNewPlace.SERVICE_PLACE_ADDRESS= d.address;
+      $rootScope.addNewPlace.LAT= d.lat;
+      $rootScope.addNewPlace.LNG= d.lng;
+      console.log(d);
       $ionicNavBarDelegate.back();
     }
   })
 
   .controller('serviceplacelist', function ($scope, $state, $ionicPopup, SERVICE_PLACE) {
+    $scope.showAddButton = false;
+    $scope.ifShowDeleteButton = true;
     $scope.showDeleteButton = function () {
       console.log('dlete');
       $scope.showDelete = !$scope.showDelete;
@@ -423,10 +449,50 @@ angular.module('homeservice.controllers', [])
       }
       SERVICE_PLACE.deleteServicePlace(item.SERVICE_PLACE_ID);
     };
-
-
   })
-
+  //下单用
+  .controller('serviceplacelist_select', function ($scope, $rootScope, $state, $ionicNavBarDelegate, SERVICE_PLACE) {
+    $scope.ifShowDeleteButton = false;
+    $scope.showAddButton = true;
+    $scope.showDeleteButton = function () {
+      //donothing
+    };
+    $scope.showDelete = false;
+    $scope.ServicePlaces = SERVICE_PLACE.getServicePlaces();
+    $scope.deleteplace = function (item) {
+      //nothing
+    };
+    $scope.selectplace = function (item) {
+      console.log('selectplace');
+      $rootScope.selectedPlace = item;
+      $ionicNavBarDelegate.goBack()
+    }
+    $scope.addplace = function () {
+      $state.go('tab.addnewplace', {});
+    }
+  })
+  .controller('addnewplace', function ($scope, $rootScope, $state,$ionicNavBarDelegate,SERVICE_PLACE) {
+    $rootScope.addNewPlace =
+    {
+      SERVICE_PLACE_ID: null,
+      SERVICE_PLACE_NAME: '请选择地址',
+      SERVICE_PLACE_ADDRESS: null,
+      SERVICE_PLACE_ADDRESS_USERINPUT:null,
+      PHONE: null,
+      LNG: null,
+      LAT: null
+    };
+    var getBaiduLocate = function () {
+      $state.go('tab.locatesite', {});
+    }
+    //确定
+    $scope.ConfirmAdd=function()
+    {
+      console.log('asdasda');
+      SERVICE_PLACE.addNewPlace($rootScope.addNewPlace);
+      $ionicNavBarDelegate.back();
+    }
+  })
 
 
 

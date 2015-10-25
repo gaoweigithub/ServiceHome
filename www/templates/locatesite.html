@@ -1,10 +1,12 @@
 <!--//地图定位-->
-<ion-view view-title="订单确认" hide-tabs="true">
+<ion-view view-title="订单确认">
   <ion-content>
     <app-map style="height: 300px;margin: 12px;box-shadow: 0 3px 25px black" address="{{address}}"></app-map>
-    <input type="text" placeholder="请输入小区名或街道名" ng-change="textChange(val)" class="button-full" ng-model="val" id="suggestId">
+    <input type="text" placeholder="请输入小区名或街道名" ng-change="textChange(val)" class="button-full" ng-model="val"
+           id="suggestId">
     <ion-list class="item-remove-animate item-avatar item-icon-right">
-      <ion-item ng-repeat="d in datas" ng-click="confirmsite(d.title,d.address,d.point.lng,d.point.lat)">
+      <!--<ion-item ng-repeat="d in datas" ng-click="confirmsite(d.title,d.address,d.point.lng,d.point.lat)">    -->
+      <ion-item ng-repeat="d in datas" ng-click="confirmsite(d)">
         {{d.title}}/{{d.address}}
       </ion-item>
     </ion-list>

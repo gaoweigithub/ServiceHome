@@ -144,7 +144,25 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
           }
         }
       })
-    ;
+      .state('tab.serviceplacelist_select',{
+        url:'/serviceplacelist_select',
+        views:{
+          'tab-homepage':{
+            templateUrl:'templates/serviceplacelist.html',
+            controller:'serviceplacelist_select'
+          }
+        }
+      })
+      .state('tab.addnewplace',{
+        url:'/addnewplace',
+        views:{
+          'tab-homepage':{
+            templateUrl:'templates/addnewplace.html',
+            controller:'addnewplace'
+          }
+        }
+      })
+
     $urlRouterProvider.otherwise('/tab/homepage');
 
   })

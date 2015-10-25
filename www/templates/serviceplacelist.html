@@ -1,15 +1,18 @@
 <!--//服务地址-->
 <ion-view view-title="服务地址">
   <ion-nav-buttons side="right">
-    <button class="button button-icon icon ion-ios-minus-outline" ng-click="showDeleteButton()">删除</button>
+    <button class="button button-icon icon ion-ios-minus-outline" ng-click="showDeleteButton()" ng-if="ifShowDeleteButton">删除</button>
   </ion-nav-buttons>
   <ion-content>
     <ion-refresher pulling-icon="ion-ios-reload" pulling-text="松开更新" on-refresh="doRefresh()"></ion-refresher>
-    <ion-list show-delete="showDelete">
-      <ion-item ng-repeat="item in ServicePlaces" class="item-remove-animate">
+    <ion-list show-delete="showDelete" class="padding ">
+      <ion-item ng-repeat="item in ServicePlaces" class="item-remove-animate" ng-click="selectplace(item)">
         {{item.SERVICE_PLACE_NAME}}/{{item.SERVICE_PLACE_ADDRESS}}
         <ion-delete-button class="ion-minus-circled" ng-click="deleteplace(item)"></ion-delete-button>
       </ion-item>
     </ion-list>
+    <div class="button-bar padding">
+      <div class="button button-positive button-block icon ion-ios-plus-outline" ng-click="addplace()" ng-if="showAddButton">&nbsp;新建地址</div>
+    </div>
   </ion-content>
 </ion-view>

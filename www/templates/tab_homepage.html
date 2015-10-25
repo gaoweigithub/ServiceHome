@@ -1,6 +1,10 @@
 <ion-view view-title="服务到家">
   <ion-nav-buttons side="left">
-    <a class="icon ion-chevron-down" ng-click="modal.show()">{{cityName}}</a>
+    <!--<a class="icon ion-chevron-down" ng-click="modal.show()">{{cityName}}</a>-->
+    <!--<a class="button icon-left ion-chevron-down button-clear" ng-click="modal.show()">{{cityName}}</a>-->
+    <a class="button button-clear" ng-click="modal.show()">
+      <i class="icon icon-left ion-ios-arrow-down button-small"></i>{{cityName}}
+    </a>
   </ion-nav-buttons>
   <ion-content>
     <ion-refresher pulling-icon="ion-ios-reload" pulling-text="松开更新" on-refresh="doRefresh()"></ion-refresher>
@@ -32,7 +36,7 @@
           <div class="list card">
             <div class="item item-divider">定位城市</div>
             <div class="item item-body">
-              <button class="button button-balanced" ng-click="reLocat()">{{selectCityName}}</button>
+              <button class="button button-positive" ng-click="reLocat()">{{selectCityName}}</button>
             </div>
           </div>
           <div class="list card">

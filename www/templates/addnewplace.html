@@ -1,0 +1,29 @@
+<!--新增地址-->
+<ion-view view-title="添加新地址">
+  <ion-content>
+    <form class="list padding">
+      <ion-list>
+        <a class="item item-icon-left item-icon-right" href="#tab/homepage/locatesite">
+          <div class="icon ion-ios-location-outline"></div>
+          {{addNewPlace.SERVICE_PLACE_NAME}}
+          <div class="icon icon-right ion-ios-arrow-right button-large" ></div>
+        </a>
+
+        <div class="item-divider">详细地址</div>
+        <label class="item  item-input">
+          <!--<div class="icon ion-ios-home-outline"></div>-->
+          <input type="text" placeholder="详细地址" ng-model="addNewPlace.SERVICE_PLACE_ADDRESS">
+        </label>
+        <label class="item  item-input">
+          <!--<div class="icon ion-ios-home-outline"></div>-->
+          <input type="text" placeholder="请填写楼号门牌号" ng-model="addNewPlace.SERVICE_PLACE_ADDRESS_USERINPUT">
+        </label>
+        <label class="item  item-icon-left">
+          <div class="icon ion-ios-telephone-outline"></div>
+          <input type="text" maxlength="11" placeholder="联系电话" ng-model="addNewPlace.PHONE">
+        </label>
+        <button class="button button-calm button-block " ng-click="ConfirmAdd()">确定</button>
+      </ion-list>
+    </form>
+  </ion-content>
+</ion-view>
