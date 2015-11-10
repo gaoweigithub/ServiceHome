@@ -24,6 +24,28 @@ angular.module('homeservice.controllers', [])
         animation: 'slide-in-up',
         focusFirstInput: true
       });
+
+    $ionicModal.fromTemplateUrl("datemodal.html", function (modal) {
+        $scope.datemodal = modal;
+      },
+      {
+        animation: 'slide-in-up',
+        focusFirstInput: true
+      });
+    //$scope.deadline = function() {
+    //  var options = {
+    //    date: $scope.todo_date,
+    //    mode: 'date'
+    //  };
+    //  datePicker.show(options, function(d) {
+    //    if (!isNaN(d.getTime())) {  // valid date
+    //      $scope.$apply(function () {
+    //        $scope.todo_date = d;
+    //      });
+    //    }
+    //  });
+    //}
+
   })
   .controller('ModalCtrl', function ($rootScope, $scope, $ionicModal, CITIES) {
     var locateCity = CITIES.getLocateCity();
@@ -67,6 +89,22 @@ angular.module('homeservice.controllers', [])
       else {
         $scope.confirmLocate();
       }
+    }
+  })
+  .controller('datemodal',function($scope)
+  {
+    $scope.deadline = function() {
+      var options = {
+        date: $scope.todo_date,
+        mode: 'date'
+      };
+      datePicker.show(options, function(d) {
+        if (!isNaN(d.getTime())) {  // valid date
+          $scope.$apply(function () {
+            $scope.todo_date = d;
+          });
+        }
+      });
     }
   })
 //订单
@@ -347,26 +385,12 @@ angular.module('homeservice.controllers', [])
     $scope.times = [2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
   })
   //百度地图定位
-  .controller('locatesite', function ($scope, $ionicNavBarDelegate, $rootScope, ls) {
+  .controller('locatesite', function ($scope, $ionicHistory, $rootScope, ls) {
     $scope.val = "";
     $scope.datas = Array();
-
-//        $scope.address="http://api.map.baidu.com/api?v=2.0&ak=138rlkCinuooUA7fZ8yYEIdg";
     $scope.lastAddress = {lng: 116.331398, lat: 39.897445};
     var map = new BMap.Map('allmap');
-    //var point = new BMap.Point($scope.lastAddress.lng, $scope.lastAddress.lat);
-    //var map=ls.getObject('baidumap', null);
     var lastPlace = ls.getObject('lastPoint', null);
-    //if(map!=null&&map!=undefined)
-    //{
-    //  console.log('findmap');
-    //}
-    //else
-    //{
-    //  console.log('not find map');
-    //  map = new BMap.Map('allmap');
-    //  ls.setObject('baidumap',map);
-    //}
     if (lastPlace != null && lastPlace != undefined&&lastPlace.lng!=undefined) {
       console.log('find');
       console.log(lastPlace);
@@ -425,7 +449,7 @@ angular.module('homeservice.controllers', [])
       $rootScope.addNewPlace.LAT= d.lat;
       $rootScope.addNewPlace.LNG= d.lng;
       console.log(d);
-      $ionicNavBarDelegate.back();
+      $ionicHistory.goBack();
     }
   })
 
@@ -451,7 +475,7 @@ angular.module('homeservice.controllers', [])
     };
   })
   //下单用
-  .controller('serviceplacelist_select', function ($scope, $rootScope, $state, $ionicNavBarDelegate, SERVICE_PLACE) {
+  .controller('serviceplacelist_select', function ($scope, $rootScope, $state, $ionicHistory, SERVICE_PLACE) {
     $scope.ifShowDeleteButton = false;
     $scope.showAddButton = true;
     $scope.showDeleteButton = function () {
@@ -465,13 +489,13 @@ angular.module('homeservice.controllers', [])
     $scope.selectplace = function (item) {
       console.log('selectplace');
       $rootScope.selectedPlace = item;
-      $ionicNavBarDelegate.goBack()
+      $ionicHistory.goBack()
     }
     $scope.addplace = function () {
       $state.go('tab.addnewplace', {});
     }
   })
-  .controller('addnewplace', function ($scope, $rootScope, $state,$ionicNavBarDelegate,SERVICE_PLACE) {
+  .controller('addnewplace', function ($scope, $rootScope, $state,$ionicHistory,SERVICE_PLACE) {
     $rootScope.addNewPlace =
     {
       SERVICE_PLACE_ID: null,
@@ -490,7 +514,8 @@ angular.module('homeservice.controllers', [])
     {
       console.log('asdasda');
       SERVICE_PLACE.addNewPlace($rootScope.addNewPlace);
-      $ionicNavBarDelegate.back();
+      $ionicHistory.goBack();
+
     }
   })
 

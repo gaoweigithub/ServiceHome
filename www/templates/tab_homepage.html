@@ -2,7 +2,7 @@
   <ion-nav-buttons side="left">
     <!--<a class="icon ion-chevron-down" ng-click="modal.show()">{{cityName}}</a>-->
     <!--<a class="button icon-left ion-chevron-down button-clear" ng-click="modal.show()">{{cityName}}</a>-->
-    <a class="button button-clear" ng-click="modal.show()">
+    <a class="button button-clear" ng-click="deadline()">
       <i class="icon icon-left ion-ios-arrow-down button-small"></i>{{cityName}}
     </a>
   </ion-nav-buttons>
@@ -52,6 +52,11 @@
           </div>
         </ion-content>
       </div>
+    </script>
+    <script id="datemodal.html" type="text/ng-template">
+    <div class="modal" ng-controller="datemodal">
+      <ion-content>datepicker</ion-content>
+    </div>
     </script>
   </ion-content>
 </ion-view>
