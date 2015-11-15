@@ -1,10 +1,29 @@
 /**
  * Created by gaowe on 2015/10/7.
  */
-angular.module('homeservice.controllers', [])
+angular.module('homeservice.controllers', ['ngResource'])
 
   //主页
-  .controller('homepage', function ($rootScope, $scope, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES) {
+  .controller('homepage', function ($rootScope, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES) {
+    var obj = $resource('http://localhost:56705/api/test/name',
+      {charge: {method: 'TestMethod', isArray: false,}});
+    var getgg = obj.get({name: 'zhangqian'}, function (data) {
+      console.log(data);
+    }, function (error) {
+      console.log(error);
+    });
+    console.log(getgg);
+
+    var User = $resource('http://www.57lehuo.com/json.php', {id: '@id'}, {
+      charge: {
+        method: 'GET',
+        params: {age: '20'},
+        isArray: false
+      }
+    });
+    console.log(User.get({id: 10}));
+    console.log(User.charge());
+
     $rootScope.UserData = {
       phone: '1',
       matchno: '2'
@@ -25,8 +44,8 @@ angular.module('homeservice.controllers', [])
         focusFirstInput: true
       });
 
-    $ionicModal.fromTemplateUrl("datemodal.html", function (modal) {
-        $scope.datemodal = modal;
+    $ionicModal.fromTemplateUrl("datetimepiker.html", function (modal) {
+        $scope.datetimemodal = modal;
       },
       {
         animation: 'slide-in-up',
@@ -91,21 +110,34 @@ angular.module('homeservice.controllers', [])
       }
     }
   })
-  .controller('datemodal',function($scope)
-  {
-    $scope.deadline = function() {
-      var options = {
-        date: $scope.todo_date,
-        mode: 'date'
-      };
-      datePicker.show(options, function(d) {
-        if (!isNaN(d.getTime())) {  // valid date
-          $scope.$apply(function () {
-            $scope.todo_date = d;
-          });
-        }
-      });
-    }
+  .controller('datemodal', function ($scope) {
+    $scope.dates = [
+      {text: '11月15号', value: '2015-11-15'},
+      {text: '11月16号', value: '2015-11-16'},
+      {text: '11月17号', value: '2015-11-17'},
+      {text: '11月18号', value: '2015-11-18'},
+      {text: '11月19号', value: '2015-11-19'},
+      {text: '11月20号', value: '2015-11-20'},
+    ];
+    $scope.times_hour = [
+      {text: '上午8点', value: 8},
+      {text: '上午9点', value: 8},
+      {text: '上午10点', value: 8},
+      {text: '上午11点', value: 8},
+      {text: '上午12点', value: 8},
+      {text: '下午1点', value: 8},
+      {text: '下午2点', value: 8},
+      {text: '下午3点', value: 8},
+      {text: '下午4点', value: 8},
+      {text: '下午5点', value: 8},
+    ];
+    $scope.times_minute = [
+      {text: '0', value: 0},
+      {text: '30', value: 30},
+    ];
+    $scope.selectDatetime = {
+      date: null, time_hour: null,time_minute:null
+    };
   })
 //订单
   .controller('orders', function ($scope, ORDERS) {
@@ -371,7 +403,14 @@ angular.module('homeservice.controllers', [])
       $state.go('tab.confirmorder_01', {serviceid: 1, serviceplan_id: 1, servicename: 1, rateplanid: 1});
     }
   })
-  .controller('confirmorder_01', function ($scope, $rootScope, $stateParams, SERVICE_PLACE) {
+  .controller('confirmorder_01', function ($scope, $rootScope, $stateParams, $ionicModal,SERVICE_PLACE) {
+    $ionicModal.fromTemplateUrl("datetimepiker.html", function (modal) {
+        $scope.datetimemodal = modal;
+      },
+      {
+        animation: 'slide-in-up',
+        focusFirstInput: true
+      });
     console.log('111');
     $rootScope.selectedPlace = SERVICE_PLACE.getLastUseServicePlace();
     $scope.extraneeds = [
@@ -391,7 +430,7 @@ angular.module('homeservice.controllers', [])
     $scope.lastAddress = {lng: 116.331398, lat: 39.897445};
     var map = new BMap.Map('allmap');
     var lastPlace = ls.getObject('lastPoint', null);
-    if (lastPlace != null && lastPlace != undefined&&lastPlace.lng!=undefined) {
+    if (lastPlace != null && lastPlace != undefined && lastPlace.lng != undefined) {
       console.log('find');
       console.log(lastPlace);
       var point = new BMap.Point(lastPlace.lng, lastPlace.lat);
@@ -444,10 +483,10 @@ angular.module('homeservice.controllers', [])
     };
     $scope.confirmsite = function (d) {
       //$rootScope.newPlace = {placename: placename, address: address, lng: lng, lat: lat};
-      $rootScope.addNewPlace.SERVICE_PLACE_NAME= d.title;
-      $rootScope.addNewPlace.SERVICE_PLACE_ADDRESS= d.address;
-      $rootScope.addNewPlace.LAT= d.lat;
-      $rootScope.addNewPlace.LNG= d.lng;
+      $rootScope.addNewPlace.SERVICE_PLACE_NAME = d.title;
+      $rootScope.addNewPlace.SERVICE_PLACE_ADDRESS = d.address;
+      $rootScope.addNewPlace.LAT = d.lat;
+      $rootScope.addNewPlace.LNG = d.lng;
       console.log(d);
       $ionicHistory.goBack();
     }
@@ -495,13 +534,14 @@ angular.module('homeservice.controllers', [])
       $state.go('tab.addnewplace', {});
     }
   })
-  .controller('addnewplace', function ($scope, $rootScope, $state,$ionicHistory,SERVICE_PLACE) {
+  .controller('addnewplace', function ($scope, $rootScope, $state, $ionicHistory, SERVICE_PLACE) {
     $rootScope.addNewPlace =
     {
       SERVICE_PLACE_ID: null,
       SERVICE_PLACE_NAME: '请选择地址',
       SERVICE_PLACE_ADDRESS: null,
-      SERVICE_PLACE_ADDRESS_USERINPUT:null,
+      SERVICE_PLACE_ADDRESS_USERINPUT: null,
+      CONTACKPERSON: null,
       PHONE: null,
       LNG: null,
       LAT: null
@@ -510,8 +550,7 @@ angular.module('homeservice.controllers', [])
       $state.go('tab.locatesite', {});
     }
     //确定
-    $scope.ConfirmAdd=function()
-    {
+    $scope.ConfirmAdd = function () {
       console.log('asdasda');
       SERVICE_PLACE.addNewPlace($rootScope.addNewPlace);
       $ionicHistory.goBack();

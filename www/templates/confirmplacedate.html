@@ -6,7 +6,7 @@
         <div class="icon ion-ios-location-outline"></div>
         <h2 class="royal title">{{selectedPlace.SERVICE_PLACE_NAME}}</h2>
 
-        <p>{{selectedPlace.PHONE}}</p>
+        <p>{{selectedPlace.CONTACKPERSON}}</p>
 
         <div class="icon icon-right ion-ios-arrow-right button-large"></div>
       </a>
@@ -18,12 +18,12 @@
         <div class="icon icon-right ion-ios-arrow-right button-large"></div>
       </a>
 
-      <label class="item  item-input">
-        <div class="icon ion-ios-time-outline"></div>
-        <!--<h2>请选择服务时间</h2>-->
-        <input type="date">
+      <a class="item  item-icon-left item-icon-right" ng-click="datetimemodal.show()">
+        <div class="icon ion-ios-clock-outline"></div>
+        <h2>选择开始时间</h2>
+
         <div class="icon icon-right ion-ios-arrow-right button-large"></div>
-      </label>
+      </a>
 
     </div>
     <ion-list>
@@ -35,6 +35,61 @@
       <div class="item item-divider">特殊要求</div>
       <textarea placeholder="请填写您的其他需求" style="width: 100%;height: 100px"></textarea>
     </div>
+    <script id="datetimepiker.html" type="text/ng-template">
+      <div class="modal" ng-controller="datemodal">
+        <ion-header-bar class="bar bar-header bar-positive">
+          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+          <h1 class="title">服务时间</h1>
+        </ion-header-bar>
+        <ion-header-bar class="bar bar-subheader">
+          <ion-item class="item-button-right">
+            {{selectDatetime.date}}&nbsp&nbsp{{selectDatetime.time_hour}}点{{selectDatetime.time_minute}}分
+            <a class="button button-positive">
+              确&nbsp认
+            </a>
+          </ion-item>
+          <!--{{selectDatetime.date}}&nbsp{{selectDatetime.time_hour}}点{{selectDatetime.time_minute}}分-->
+        </ion-header-bar>
+        <ion-content class="has-header has-subheader">
+          <div class="row" >
+            <div class="col">
+              <div class="list">
+                <div class="item item-divider">
+                  日期
+                </div>
+                <ion-radio ng-repeat="item in dates"
+                           ng-value="item.value"
+                           ng-model="selectDatetime.date">
+                  {{ item.text }}
+                </ion-radio>
+              </div>
+            </div>
+            <div class="col">
+              <div class="item item-divider">
+                时间
+              </div>
+              <ion-radio ng-repeat="item in times_hour"
+                         ng-value="item.value"
+                         ng-model="selectDatetime.time_hour"
+                         name="selectDatetime.time_hour">
+                {{ item.text }}
+              </ion-radio>
+            </div>
+            <div class="col col-20">
+              <div class="item item-divider">
+                分钟
+              </div>
+              <ion-radio ng-repeat="item in times_minute"
+                         ng-value="item.value"
+                         ng-model="selectDatetime.time_minute"
+                         name="selectDatetime.time_minute">
+                {{ item.text }}
+              </ion-radio>
+            </div>
+          </div>
+        </ion-content>
+      </div>
+    </script>
   </ion-content>
   <ion-footer-bar class="bar-assertive">
     <div class="title" style="align-items:center" ng-click="">提交订单</div>

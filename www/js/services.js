@@ -299,6 +299,7 @@ angular.module('homeservice.services', [])
         SERVICE_PLACE_NAME: '诸新一村103号',
         SERVICE_PLACE_ADDRESS: '上海市平乐路103号',
         SERVICE_PLACE_ADDRESS_USERINPUT:'',
+        CONTACKPERSON:'高威',
         PHONE:18612112092,
         LNG: 121,
         LAT: 31
@@ -308,6 +309,7 @@ angular.module('homeservice.services', [])
         SERVICE_PLACE_NAME: '凌空SOHO',
         SERVICE_PLACE_ADDRESS: '上海市闵行区金钟路广顺路',
         SERVICE_PLACE_ADDRESS_USERINPUT:'',
+        CONTACKPERSON:'张倩',
         PHONE:18612112092,
         LNG: 121,
         LAT: 31
