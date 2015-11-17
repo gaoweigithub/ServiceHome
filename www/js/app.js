@@ -162,9 +162,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
           }
         }
       })
-
     $urlRouterProvider.otherwise('/tab/homepage');
-
   })
   //隐藏tab
   .directive('hideTabs', function($rootScope) {

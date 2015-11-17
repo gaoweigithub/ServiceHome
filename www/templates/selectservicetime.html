@@ -2,7 +2,7 @@
 <ion-view view-title="请选择服务时长">
   <ion-content>
     <ion-list class="item-remove-animate item-avatar item-icon-right">
-      <ion-item ng-repeat="t in times">
+      <ion-item ng-repeat="t in times" ng-click="confirmtime(t)">
         {{t}}小时
       </ion-item>
     </ion-list>

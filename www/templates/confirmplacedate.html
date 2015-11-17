@@ -13,15 +13,15 @@
 
       <a class="item  item-icon-left item-icon-right" href="#tab/homepage/selectservicetime">
         <div class="icon ion-ios-clock-outline"></div>
-        <h2>请选择服务时长</h2>
-
+        <h2 ng-show="serviceduration.isSelect">{{serviceduration.duration}}&nbsp小时</h2>
+        <h2 ng-show="!serviceduration.isSelect">请选择服务时长</h2>
         <div class="icon icon-right ion-ios-arrow-right button-large"></div>
       </a>
 
       <a class="item  item-icon-left item-icon-right" ng-click="datetimemodal.show()">
         <div class="icon ion-ios-clock-outline"></div>
-        <h2>选择开始时间</h2>
-
+        <h2 ng-show="!selectDatetime.isSelect">请选择服务时间</h2>
+        <h2 ng-show="selectDatetime.isSelect">{{selectDatetime.date}}&nbsp&nbsp{{selectDatetime.time_hour}}点{{selectDatetime.time_minute}}分</h2>
         <div class="icon icon-right ion-ios-arrow-right button-large"></div>
       </a>
 
@@ -37,14 +37,14 @@
     </div>
     <script id="datetimepiker.html" type="text/ng-template">
       <div class="modal" ng-controller="datemodal">
-        <ion-header-bar class="bar bar-header bar-positive">
-          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+        <ion-header-bar class="bar bar-header bar-balanced">
+          <!--<button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>-->
           <h1 class="title">服务时间</h1>
         </ion-header-bar>
         <ion-header-bar class="bar bar-subheader">
           <ion-item class="item-button-right">
             {{selectDatetime.date}}&nbsp&nbsp{{selectDatetime.time_hour}}点{{selectDatetime.time_minute}}分
-            <a class="button button-positive">
+            <a class="button button-balanced" ng-click="modal.hide();confirmdatetime()">
               确&nbsp认
             </a>
           </ion-item>
@@ -68,7 +68,7 @@
               <div class="item item-divider">
                 时间
               </div>
-              <ion-radio ng-repeat="item in times_hour"
+              <ion-radio ng-repeat="item in time_hours"
                          ng-value="item.value"
                          ng-model="selectDatetime.time_hour"
                          name="selectDatetime.time_hour">
@@ -79,7 +79,7 @@
               <div class="item item-divider">
                 分钟
               </div>
-              <ion-radio ng-repeat="item in times_minute"
+              <ion-radio ng-repeat="item in time_minutes"
                          ng-value="item.value"
                          ng-model="selectDatetime.time_minute"
                          name="selectDatetime.time_minute">

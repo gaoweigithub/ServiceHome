@@ -66,6 +66,7 @@ angular.module('homeservice.controllers', ['ngResource'])
     //}
 
   })
+  //城市选择弹出框
   .controller('ModalCtrl', function ($rootScope, $scope, $ionicModal, CITIES) {
     var locateCity = CITIES.getLocateCity();
 
@@ -110,36 +111,48 @@ angular.module('homeservice.controllers', ['ngResource'])
       }
     }
   })
-  .controller('datemodal', function ($scope) {
+  //时间选择弹出框
+  .controller('datemodal', function ($scope, $rootScope) {
     $scope.dates = [
       {text: '11月15号', value: '2015-11-15'},
       {text: '11月16号', value: '2015-11-16'},
       {text: '11月17号', value: '2015-11-17'},
       {text: '11月18号', value: '2015-11-18'},
       {text: '11月19号', value: '2015-11-19'},
-      {text: '11月20号', value: '2015-11-20'},
+      {text: '11月20号', value: '2015-11-20'}
     ];
-    $scope.times_hour = [
+    $scope.time_hours = [
       {text: '上午8点', value: 8},
-      {text: '上午9点', value: 8},
-      {text: '上午10点', value: 8},
-      {text: '上午11点', value: 8},
-      {text: '上午12点', value: 8},
-      {text: '下午1点', value: 8},
-      {text: '下午2点', value: 8},
-      {text: '下午3点', value: 8},
-      {text: '下午4点', value: 8},
-      {text: '下午5点', value: 8},
+      {text: '上午9点', value: 9},
+      {text: '上午10点', value: 10},
+      {text: '上午11点', value: 11},
+      {text: '上午12点', value: 12},
+      {text: '下午1点', value: 13},
+      {text: '下午2点', value: 14},
+      {text: '下午3点', value: 15},
+      {text: '下午4点', value: 16},
+      {text: '下午5点', value: 17}
     ];
-    $scope.times_minute = [
+    $scope.time_minutes = [
       {text: '0', value: 0},
-      {text: '30', value: 30},
+      {text: '30', value: 30}
     ];
     $scope.selectDatetime = {
-      date: null, time_hour: null,time_minute:null
+      date: null, time_hour: null, time_minute: null
     };
+    $scope.selectDatetime.date = $scope.dates[0].value;
+    $scope.selectDatetime.time_hour = $scope.time_hours[0].value;
+    $scope.selectDatetime.time_minute = $scope.time_minutes[0].value;
+    $scope.confirmdatetime = function () {
+      $rootScope.selectDatetime = {
+        isSelect: true,
+        date: $scope.selectDatetime.date,
+        time_hour: $scope.selectDatetime.time_hour,
+        time_minute: $scope.selectDatetime.time_minute
+      };
+    }
   })
-//订单
+  //订单
   .controller('orders', function ($scope, ORDERS) {
     console.log('orders');
     $scope.Orders = ORDERS.getOrders(1);
@@ -166,8 +179,7 @@ angular.module('homeservice.controllers', ['ngResource'])
       $state.go('tab.usercenter', {}, {reload: true});
     }
 
-  }
-)
+  })
 //个人中心
   .controller('usercenter', function ($scope, $rootScope, $ionicPopup, $state, ls) {
     if (!ls.getObject('userData', null)) {
@@ -403,7 +415,8 @@ angular.module('homeservice.controllers', ['ngResource'])
       $state.go('tab.confirmorder_01', {serviceid: 1, serviceplan_id: 1, servicename: 1, rateplanid: 1});
     }
   })
-  .controller('confirmorder_01', function ($scope, $rootScope, $stateParams, $ionicModal,SERVICE_PLACE) {
+  //订单确认界面
+  .controller('confirmorder_01', function ($scope, $rootScope, $stateParams, $ionicModal, SERVICE_PLACE) {
     $ionicModal.fromTemplateUrl("datetimepiker.html", function (modal) {
         $scope.datetimemodal = modal;
       },
@@ -419,9 +432,19 @@ angular.module('homeservice.controllers', ['ngResource'])
       {value: false, desc: '上门前打个电话', id: 3},
       {value: false, desc: '家有爱宠', id: 4}
     ];
+    $rootScope.selectDatetime = {isSelect: false};
+    $rootScope.serviceduration = {isSelect: false};
   })
-  .controller('selectservicetime', function ($scope) {
+  //服务时长列表
+  .controller('selectservicetime', function ($scope, $rootScope, $ionicHistory) {
     $scope.times = [2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
+    $scope.confirmtime = function (t) {
+      $rootScope.serviceduration = {
+        isSelect: true,
+        duration: t
+      };
+      $ionicHistory.goBack();
+    }
   })
   //百度地图定位
   .controller('locatesite', function ($scope, $ionicHistory, $rootScope, ls) {
@@ -491,7 +514,7 @@ angular.module('homeservice.controllers', ['ngResource'])
       $ionicHistory.goBack();
     }
   })
-
+//服务地址列表
   .controller('serviceplacelist', function ($scope, $state, $ionicPopup, SERVICE_PLACE) {
     $scope.showAddButton = false;
     $scope.ifShowDeleteButton = true;
@@ -534,6 +557,7 @@ angular.module('homeservice.controllers', ['ngResource'])
       $state.go('tab.addnewplace', {});
     }
   })
+  //添加新的服务地址
   .controller('addnewplace', function ($scope, $rootScope, $state, $ionicHistory, SERVICE_PLACE) {
     $rootScope.addNewPlace =
     {
