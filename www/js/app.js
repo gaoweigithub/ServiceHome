@@ -3,7 +3,9 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.services'])
+angular.module('homeservice',
+  ['ionic', 'ngResource','homeservice.controllers','homeservice.services','homeservice.common',
+    'homeservice.homepage','homeservice.orders','homeservice.usercenter'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -28,19 +30,18 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
   {
     console.log('config');
     $stateProvider
-
       //tab页面
       .state('tab',{
         url:'/tab',
         abstract:true,
-        templateUrl:'templates/tabs.html'
+        templateUrl:'views/tabs.html'
       })
       //主页
       .state('tab.homepage',{
         url:'/homepage',
         views:{
           'tab-homepage':{
-            templateUrl:'templates/tab_homepage.html',
+            templateUrl:'views/homepage/tab_homepage.html',
             controller:'homepage'
           }
         }
@@ -51,7 +52,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         url:'/orders',
         views:{
           'tab-orders':{
-            templateUrl:'templates/tab_orders.html',
+            templateUrl:'views/order/tab_orders.html',
             controller:'orders'
           }
         }
@@ -64,7 +65,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         abstract:false,
         views:{
           'tab-usercenter':{
-            templateUrl:'templates/tab_usercenter.html',
+            templateUrl:'views/usercenter/tab_usercenter.html',
             controller:'usercenter'
           }
         }
@@ -74,7 +75,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         url:'/usercenter/userlogin',
         views:{
           'tab-usercenter':{
-            templateUrl:'templates/userlogin.html',
+            templateUrl:'views/usercenter/userlogin.html',
             controller:'userlogin'
           }
         }
@@ -85,7 +86,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         url:'/homepage/serviceplanlist/:serviceid/:servicename',
         views:{
           'tab-homepage':{
-            templateUrl:'templates/serviceplanlist.html',
+            templateUrl:'views/homepage/serviceplanlist.html',
             controller:'serviceplanlist'
           }
         }
@@ -97,7 +98,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         url:'/homepage/rateplan/:serviceid/:serviceplan_id/:servicename',
         views:{
           'tab-homepage':{
-            templateUrl:'templates/hp_rateplan.html',
+            templateUrl:'views/homepage/hp_rateplan.html',
             controller:'rateplan'
           }
         }
@@ -108,7 +109,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         url:'/homepage/confirmorder_01/:serviceid/:serviceplan_id/:servicename/:rateplanid',
         views:{
           'tab-homepage':{
-            templateUrl:'templates/confirmplacedate.html',
+            templateUrl:'views/homepage/confirmplacedate.html',
             controller:'confirmorder_01'
           }
         }
@@ -118,7 +119,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         url:'/homepage/locatesite',
         views:{
           'tab-homepage':{
-            templateUrl:'templates/locatesite.html',
+            templateUrl:'views/common/locatesite.html',
             controller:'locatesite'
           }
         }
@@ -129,7 +130,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         url:'/homepage/selectservicetime',
         views:{
           'tab-homepage':{
-            templateUrl:'templates/selectservicetime.html',
+            templateUrl:'views/homepage/selectservicetime.html',
             controller:'selectservicetime'
           }
         }
@@ -139,7 +140,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         url:'/serviceplacelist',
         views:{
           'tab-usercenter':{
-            templateUrl:'templates/serviceplacelist.html',
+            templateUrl:'views/common/serviceplacelist.html',
             controller:'serviceplacelist'
           }
         }
@@ -148,7 +149,7 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         url:'/serviceplacelist_select',
         views:{
           'tab-homepage':{
-            templateUrl:'templates/serviceplacelist.html',
+            templateUrl:'views/common/serviceplacelist.html',
             controller:'serviceplacelist_select'
           }
         }
@@ -157,11 +158,12 @@ angular.module('homeservice', ['ionic','homeservice.controllers','homeservice.se
         url:'/addnewplace',
         views:{
           'tab-homepage':{
-            templateUrl:'templates/addnewplace.html',
+            templateUrl:'views/common/addnewplace.html',
             controller:'addnewplace'
           }
         }
-      })
+      });
+    console.log('hahah');
     $urlRouterProvider.otherwise('/tab/homepage');
   })
   //隐藏tab

@@ -5,7 +5,6 @@
         <img ng-src="{{serviceplan.SERVICE_PLAN_URL}}" class="text-center"/>
       </div>
     </div>
-
     <div class="list card" ng-show="ISShowSelected">
       <div class="item item-divider">已选项目，总价：{{SelectItem.allcost| currency:'￥'}}</div>
       <label class="item" ng-show="SelectItem.showname">
@@ -26,31 +25,21 @@
         </ion-radio>
       </ion-list>
     </div>
-
     <div class="list card">
       <div class="item item-divider">服务范围</div>
       <div class="item item-body">
         {{serviceplan.SERVICE_LIMIT}}
       </div>
     </div>
-
     <div class="list card">
       <div class="item item-divider">服务标准</div>
       <div class="item item-body">
         {{serviceplan.SERVICE_STANDARD}}
       </div>
     </div>
-
     <br/>
     <br/>
   </ion-content>
-  <!--<ion-footer-bar>-->
-  <!--<button class="button button-full button-large button-calm ">立即预约</button>-->
-  <!--</ion-footer-bar>-->
-  <!--<div class="bar bar-footer">-->
-
-    <!--<div class="title button button-assertive button-full" ng-click="confirmorder_01()">立即预约</div>-->
-  <!--</div>-->
   <ion-footer-bar class="bar-assertive">
     <div class="title" style="align-items:center" ng-click="confirmorder_01()">立即预约</div>
   </ion-footer-bar>
