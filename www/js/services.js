@@ -280,7 +280,7 @@ angular.module('homeservice.services', [])
         PRICE: 345
       }
     ];
-    var getOrders = function (status) {
+    var getOrders = function () {
       return Orders;
     }
     var cancelOrder = function (orderid) {

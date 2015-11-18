@@ -7,4 +7,8 @@ angular.module('homeservice.orders',[])
     console.log('orders');
     $scope.Orders = ORDERS.getOrders(1);
   })
+  .controller('orderdetail',function($scope,ORDERS,$stateParams){
+    var orderid=$stateParams.orderid;
+    console.log(orderid);
+})
 ;

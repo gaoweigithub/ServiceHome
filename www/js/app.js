@@ -114,6 +114,28 @@ angular.module('homeservice',
           }
         }
       })
+      //订单详情--订单页
+      .state('tab.order_detail_order',
+      {
+        url:'/orders/order_detail_order/:orderid',
+        views:{
+          'tab-orders':{
+            templateUrl:'views/order/order_detail.html',
+            controller:'orderdetail'
+          }
+        }
+      })
+      //订单详情--下单页
+      .state('tab.order_detail_homepage',
+      {
+        url:'/homepage/order_detail_homepage/:orderid',
+        views:{
+          'tab-homepage':{
+            templateUrl:'views/order/order_detail.html',
+            controller:'orderdetail'
+          }
+        }
+      })
       //地址定位
       .state('tab.locatesite',{
         url:'/homepage/locatesite',
