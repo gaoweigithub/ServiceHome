@@ -12,7 +12,7 @@
       </a>
 
       <a class="item  item-icon-left item-icon-right" href="#tab/homepage/selectservicetime">
-        <div class="icon ion-ios-clock-outline"></div>
+        <div class="icon ion-ios-stopwatch-outline"></div>
         <h2 ng-show="serviceduration.isSelect">{{serviceduration.duration}}&nbsp小时</h2>
         <h2 ng-show="!serviceduration.isSelect">请选择服务时长</h2>
         <div class="icon icon-right ion-ios-arrow-right button-large"></div>
@@ -92,6 +92,6 @@
     </script>
   </ion-content>
   <ion-footer-bar class="bar-assertive">
-    <div class="title" style="align-items:center" ng-click="">提交订单</div>
+    <a class="title" style="align-items:center" href="#tab/homepage/order_detail_homepage/1">提交订单</a>
   </ion-footer-bar>
 </ion-view>

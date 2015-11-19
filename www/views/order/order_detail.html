@@ -1,5 +1,21 @@
 <ion-view view-title="订单详情">
   <ion-content>
     <ion-refresher pulling-icon="ion-ios-reload" pulling-text="松开更新" on-refresh="doRefresh()"></ion-refresher>
+    <div class="list card">
+      <div class="item item-divider tab-title">服务项目</div>
+      <label class="item">{{orderInfo.SERVICE_NAME}}</label>
+
+      <div class="item item-divider tab-title">地点</div>
+      <label class="item">{{orderInfo.SERVICE_PLACE}}</label>
+      <label class="item">{{orderInfo.CONTACTPERSON}}</label>
+      <label class="item">{{orderInfo.CONTACTPHONE}}</label>
+
+      <div class="item item-divider tab-title">总金额</div>
+      <label class="item">{{orderInfo.PRICE|currency}}</label>
+      <button class="button button-assertive button-block" ng-show="orderInfo.STATUS==1">立即支付{{orderInfo.PRICE|currency}}
+      </button>
+      <button class="button button-assertive button-block" ng-show="orderInfo.STATUS!=1">
+        订单取消</button>
+    </div>
   </ion-content>
 </ion-view>

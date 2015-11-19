@@ -277,18 +277,31 @@ angular.module('homeservice.services', [])
         BUTTON_TEXT: '去支付',
         BUTTON_FUNCTION: 'payorder',
         EXTRANEEDS: '家有宠物',
-        PRICE: 345
+        PRICE: 345,
+        CONTACTPERSON:'高威',
+        CONTACTPHONE:18612112092
       }
     ];
     var getOrders = function () {
       return Orders;
+    }
+    var getOrderbyOrderID=function(orderid)
+    {
+      for(var i=0;i<Orders.length;i++)
+      {
+        if(Orders[i].ORDERID==orderid)
+        {
+          return Orders[i];
+        }
+      }
     }
     var cancelOrder = function (orderid) {
       //todo
     }
     return {
       getOrders: getOrders,
-      cancelOrder: cancelOrder
+      cancelOrder: cancelOrder,
+      getOrderbyOrderID :getOrderbyOrderID
     }
   })
   //服务地址

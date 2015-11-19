@@ -2,7 +2,7 @@
   <ion-content>
     <ion-refresher pulling-icon="ion-ios-reload" pulling-text="松开更新" on-refresh="doRefresh()"></ion-refresher>
     <ion-list>
-      <a class="item" ng-repeat="item in Orders" href="#tab/orders/order_detail_order/1">
+      <a class="item" ng-repeat="item in Orders">
         <div class=" item padding  text-right">
           <span class="" style="float: left">{{item.SERVICE_NAME}}</span>
           <span style="color: red;">{{item.STATUS_NAME}}</span>
@@ -14,7 +14,8 @@
             <div class="icon ion-ios-time-outline">&nbsp;{{item.ACTUAL_START_TIME}}&nbsp;到&nbsp;{{item.ACTUAL_END_TIME}}</div>
           </div>
         <div class=" item padding">
-            <div class="button button-assertive button-small" style="float: right" ng-click="orderfunction(item.BUTTON_FUNCTION)" >{{item.BUTTON_TEXT}}</div>
+            <div class="button button-assertive button-small" style="float: right" ng-click="orderfunction(item.BUTTON_FUNCTION)" ng-show="item.STATUS==1">去支付</div>
+            <div class="button button-assertive button-small" style="float: right" ng-click="orderfunction(item.BUTTON_FUNCTION)" ng-show="item.STATUS!=1">{{item.BUTTON_TEXT}}</div>
         </div>
       </a>
     </ion-list>
