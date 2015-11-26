@@ -3,7 +3,7 @@
     <!--<a class="icon ion-chevron-down" ng-click="modal.show()">{{cityName}}</a>-->
     <!--<a class="button icon-left ion-chevron-down button-clear" ng-click="datetimemodal.show()">{{cityName}}</a>-->
     <a class="button button-clear" ng-click="modal.show()">
-      <i class="icon icon-left ion-ios-arrow-down button-small"></i>{{cityName}}
+      <i class="icon icon-left ion-ios-arrow-down button-small"></i>{{cityInfo.cityName}}
     </a>
   </ion-nav-buttons>
   <ion-content>
@@ -44,8 +44,8 @@
             <div class="item item-body">
               <ion-list>
                 <ion-item ng-repeat="item in getOpenCityList()" type="item-text-wrap"
-                          ng-click="onTouchCity(item.cityid,item.cityname);modal.hide()">
-                  <h>{{item.cityname}}</h>
+                          ng-click="onTouchCity(item.cityID,item.cityName);modal.hide()">
+                  <h>{{item.cityName}}</h>
                 </ion-item>
               </ion-list>
             </div>

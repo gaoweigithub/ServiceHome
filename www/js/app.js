@@ -241,7 +241,6 @@ angular.module('homeservice',
       }
     }
   });
-;
 
 
 

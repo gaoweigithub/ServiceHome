@@ -1,7 +1,7 @@
 /**
  * Created by gaowe on 2015/11/17.
  */
-angular.module('homeservice.common',[])
+angular.module('homeservice.common', [])
   //添加新的服务地址
   .controller('addnewplace', function ($scope, $rootScope, $state, $ionicHistory, SERVICE_PLACE) {
     $rootScope.addNewPlace =
@@ -121,16 +121,15 @@ angular.module('homeservice.common',[])
   .controller('ModalCtrl', function ($rootScope, $scope, $ionicModal, CITIES) {
     var locateCity = CITIES.getLocateCity();
 
-    $scope.selectCityID = locateCity.cityid;
-    $scope.selectCityName = locateCity.cityname;
+    $scope.selectCityID = locateCity.cityId;
+    $scope.selectCityName = locateCity.cityName;
 
 
     $scope.getOpenCityList = function () {
       return CITIES.getOpenCityList();
     };
     $scope.confirmLocate = function () {
-      $rootScope.cityID = $scope.selectCityID;
-      $rootScope.cityName = $scope.selectCityName;
+      $rootScope.cityInfo = {cityID: $scope.selectCityID, cityName: $scope.selectCityName};
       $scope.modal.hide();
     };
     //选中城市

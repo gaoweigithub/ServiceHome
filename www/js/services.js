@@ -215,17 +215,9 @@ angular.module('homeservice.services', [])
 
   .factory('CITIES', function () {
     var open_cities = [
-      {cityid: '1', cityname: '北京'},
-      {cityid: '2', cityname: '上海'},
-      {cityid: '3', cityname: '常州'},
-      {cityid: '4', cityname: '无锡'},
-      {cityid: '5', cityname: '苏州'},
-      {cityid: '6', cityname: '镇江'},
-      {cityid: '7', cityname: '江阴'},
-      {cityid: '8', cityname: '沭阳'},
-      {cityid: '9', cityname: '宿迁'},
+      {cityID: '3', cityName: '常州'}
     ];
-    var locate_city = {};
+    var locate_city = {cityID: '3', cityName: '常州'};
 
     //获取已开通城市列表
     var getOpenCityList = function () {
@@ -245,12 +237,12 @@ angular.module('homeservice.services', [])
       for (var name in  locate_city) {
         return locate_city;
       }
-      return {cityid: -1, cityname: "定位失败，点击重试.."}
+      return {cityID: -1, cityName: "定位失败，点击重试.."}
     };
     //重新定位
     var reLocat = function () {
       locate_city = {
-        cityid: '2', cityname: '上海'
+        cityID: '3', cityName: '常州'
       };
       return locate_city;
     }
@@ -385,6 +377,19 @@ angular.module('homeservice.services', [])
       }
     }
   }])
+  .factory('pingpp', ['$q', '$window', function ($q, $window) {
+    return {
+      createPayment: function (charge) {
+        return $q(function (resolve, reject) {
+          $window.pingpp.createPayment(charge, function () {
+            resolve();
+          }, function (err) {
+            reject(err);
+          });
+        });
+      }
+    };
+  }]);
 
 
 

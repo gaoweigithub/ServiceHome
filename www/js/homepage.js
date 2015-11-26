@@ -1,7 +1,7 @@
 /**
  * Created by gaowe on 2015/11/17.
  */
-angular.module('homeservice.homepage',[])
+angular.module('homeservice.homepage', [])
   //下单用
   .controller('serviceplacelist_select', function ($scope, $rootScope, $state, $ionicHistory, SERVICE_PLACE) {
     $scope.ifShowDeleteButton = false;
@@ -24,7 +24,7 @@ angular.module('homeservice.homepage',[])
     }
   })
   //主页
-  .controller('homepage', function ($rootScope, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES) {
+  .controller('homepage', function ($rootScope, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, ls) {
     var obj = $resource('http://localhost:56705/api/test/name',
       {charge: {method: 'TestMethod', isArray: false,}});
     var getgg = obj.get({name: 'zhangqian'}, function (data) {
@@ -48,8 +48,22 @@ angular.module('homeservice.homepage',[])
       phone: '1',
       matchno: '2'
     }
-    $rootScope.cityID = '1';
-    $rootScope.cityName = "北京";
+    //缓存获取上次城市
+    var lastCity = ls.getObject('lastCity');
+    console.log('ccccc');
+    console.log(lastCity);
+    if (lastCity != null && lastCity.cityID!=undefined) {
+      console.log('iiiii');
+      $rootScope.cityInfo = {cityID: lastCity.cityID, cityName: lastCity.cityName};
+    }
+    else {
+      lastCity = CITIES.getLocateCity();
+      console.log('ddddd');
+      console.log(lastCity);
+      $rootScope.cityInfo = lastCity;
+      ls.setObject('lastCity', lastCity);
+    }
+
     console.log($rootScope.cityID);
     console.log('homepage');
     $scope.advs = Advertisement.getAllAdvs();
