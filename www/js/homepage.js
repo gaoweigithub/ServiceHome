@@ -25,24 +25,17 @@ angular.module('homeservice.homepage', [])
   })
   //主页
   .controller('homepage', function ($rootScope, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, ls) {
-    var obj = $resource('http://localhost:56705/api/test/name',
-      {charge: {method: 'TestMethod', isArray: false,}});
-    var getgg = obj.get({name: 'zhangqian'}, function (data) {
-      console.log(data);
-    }, function (error) {
-      console.log(error);
-    });
-    console.log(getgg);
 
-    var User = $resource('http://www.57lehuo.com/json.php', {id: '@id'}, {
-      charge: {
-        method: 'GET',
-        params: {age: '20'},
-        isArray: false
+    var data = {'requestHeader':{ 'UserID': 10000, 'AccessCode': '549973' },'cityid':1};
+    data.requestHeader.UserID=10000;
+    data.requestHeader.AccessCode='549973';
+    var services = $resource("http://localhost:34413/GetCityService", {}, {
+      save: {
+        method: 'POST', params: data
       }
     });
-    console.log(User.get({id: 10}));
-    console.log(User.charge());
+    services.save();
+
 
     $rootScope.UserData = {
       phone: '1',
@@ -52,7 +45,7 @@ angular.module('homeservice.homepage', [])
     var lastCity = ls.getObject('lastCity');
     console.log('ccccc');
     console.log(lastCity);
-    if (lastCity != null && lastCity.cityID!=undefined) {
+    if (lastCity != null && lastCity.cityID != undefined) {
       console.log('iiiii');
       $rootScope.cityInfo = {cityID: lastCity.cityID, cityName: lastCity.cityName};
     }
