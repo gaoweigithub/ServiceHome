@@ -24,17 +24,14 @@ angular.module('homeservice.homepage', [])
     }
   })
   //主页
-  .controller('homepage', function ($rootScope, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, ls) {
+  .controller('homepage', function (ENV, $rootScope, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, ls) {
 
-    var data = {'requestHeader':{ 'UserID': 10000, 'AccessCode': '549973' },'cityid':1};
-    data.requestHeader.UserID=10000;
-    data.requestHeader.AccessCode='549973';
-    var services = $resource("http://localhost:34413/GetCityService", {}, {
-      save: {
-        method: 'POST', params: data
-      }
+    var services = $resource("http://localhost:34413/GetCityService?userid=1000&acode=549937");
+    services.get({cityid: 1}, function (response) {
+      console.log('ok'+JSON.stringify(response))
+    }, function (err) {
+      console.log('err'+JSON.stringify(err))
     });
-    services.save();
 
 
     $rootScope.UserData = {

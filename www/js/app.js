@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('homeservice',
   ['ionic', 'ngResource','homeservice.controllers','homeservice.services','homeservice.common',
-    'homeservice.homepage','homeservice.orders','homeservice.usercenter'])
+    'homeservice.homepage','homeservice.orders','homeservice.usercenter','homeservice.config'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
