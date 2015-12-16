@@ -19,63 +19,22 @@ angular.module('homeservice.services', [])
   })
 
 //订单字典表
-  .factory('SERVICE', function () {
-    var services =
-      [
-        {
-          SERVICE_ID: '1',
-          PARENT_SERVICE_ID: '',
-          SERVICE_CODE: 'JZ',
-          SERVICE_NAME: '家政',
-          SERVICE_ITEMS: '日常保洁，擦玻璃，深度保洁',
-          PICURL: 'http://static.cnblogs.com/images/logo_small.gif',
-          SERVICE_PLAN: [
-            {
-              SERVICE_PLAN_ID: 'sp1',
-              SERVICE_ID: '1',
-              SERVICE_PLAN_NAME: '日常保洁',
-              SERVICE_PLAN_DESC: '日常保洁不包含室外玻璃和家电深度清洁',
-              SERVICE_PLAN_URL: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png',
-              SERVICE_LIMIT: '地面，厨房，卫生间；家具等等',
-              SERVICE_STANDARD: '地面干净，离开时带走垃圾，室内整体光亮无尘'
-            },
-            {
-              SERVICE_PLAN_ID: 'sp2',
-              SERVICE_ID: '1',
-              SERVICE_PLAN_NAME: '擦玻璃',
-              SERVICE_PLAN_DESC: '明亮窗外色彩',
-              SERVICE_PLAN_URL: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png',
-              SERVICE_LIMIT: '地面，厨房，卫生间；家具等等',
-              SERVICE_STANDARD: '地面干净，离开时带走垃圾，室内整体光亮无尘'
-            },
-            {
-              SERVICE_PLAN_ID: 'sp3',
-              SERVICE_ID: '1',
-              SERVICE_PLAN_NAME: '深度保洁',
-              SERVICE_PLAN_DESC: '出尽细微尘菌',
-              SERVICE_PLAN_URL: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png',
-              SERVICE_LIMIT: '地面，厨房，卫生间；家具等等',
-              SERVICE_STANDARD: '地面干净，离开时带走垃圾，室内整体光亮无尘'
-            }
-          ]
-        },
-        {
-          SERVICE_ID: '2',
-          PARENT_SERVICE_ID: '',
-          SERVICE_CODE: 'LR',
-          SERVICE_NAME: '丽人',
-          SERVICE_ITEMS: '手部美甲，足部美甲，美婕，美妆',
-          PICURL: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png',
-        }
-      ];
+  .factory('SERVICE', function ($resource) {
+
 
     var getAllBasicServiceList = function () {
-      return services;
+
+      var servicesResource = $resource("http://localhost:34413/GetCityService?userid=1000&acode=549937");
+      servicesResource.get({cityid: 1}, function (response) {
+        return JSON.stringify(response.ServiceList);
+      }, function (err) {
+        console.log('err' + JSON.stringify(err))
+      });
     };
     var getServicePlanList = function (basicServiceID) {
       for (i = 0; i < services.length; i++) {
         if (services[i].SERVICE_ID == basicServiceID) {
-          return services[i].SERVICE_PLAN;
+          return services[i].SERVICE_ITEMS;
         }
       }
       return null;
@@ -86,7 +45,7 @@ angular.module('homeservice.services', [])
       console.log('servicePlanID:' + servicePlanID);
       var servicePlanList = getServicePlanList(serviceid);
       for (i = 0; i < servicePlanList.length; i++) {
-        if (servicePlanList[i].SERVICE_PLAN_ID == servicePlanID) {
+        if (servicePlanList[i].SERVICE__ID == servicePlanID) {
           return servicePlanList[i];
         }
       }
@@ -270,19 +229,16 @@ angular.module('homeservice.services', [])
         BUTTON_FUNCTION: 'payorder',
         EXTRANEEDS: '家有宠物',
         PRICE: 345,
-        CONTACTPERSON:'高威',
-        CONTACTPHONE:18612112092
+        CONTACTPERSON: '高威',
+        CONTACTPHONE: 18612112092
       }
     ];
     var getOrders = function () {
       return Orders;
     }
-    var getOrderbyOrderID=function(orderid)
-    {
-      for(var i=0;i<Orders.length;i++)
-      {
-        if(Orders[i].ORDERID==orderid)
-        {
+    var getOrderbyOrderID = function (orderid) {
+      for (var i = 0; i < Orders.length; i++) {
+        if (Orders[i].ORDERID == orderid) {
           return Orders[i];
         }
       }
@@ -293,7 +249,7 @@ angular.module('homeservice.services', [])
     return {
       getOrders: getOrders,
       cancelOrder: cancelOrder,
-      getOrderbyOrderID :getOrderbyOrderID
+      getOrderbyOrderID: getOrderbyOrderID
     }
   })
   //服务地址
@@ -303,9 +259,9 @@ angular.module('homeservice.services', [])
         SERVICE_PLACE_ID: 1,
         SERVICE_PLACE_NAME: '诸新一村103号',
         SERVICE_PLACE_ADDRESS: '上海市平乐路103号',
-        SERVICE_PLACE_ADDRESS_USERINPUT:'',
-        CONTACKPERSON:'高威',
-        PHONE:18612112092,
+        SERVICE_PLACE_ADDRESS_USERINPUT: '',
+        CONTACKPERSON: '高威',
+        PHONE: 18612112092,
         LNG: 121,
         LAT: 31
       },
@@ -313,66 +269,58 @@ angular.module('homeservice.services', [])
         SERVICE_PLACE_ID: 2,
         SERVICE_PLACE_NAME: '凌空SOHO',
         SERVICE_PLACE_ADDRESS: '上海市闵行区金钟路广顺路',
-        SERVICE_PLACE_ADDRESS_USERINPUT:'',
-        CONTACKPERSON:'张倩',
-        PHONE:18612112092,
+        SERVICE_PLACE_ADDRESS_USERINPUT: '',
+        CONTACKPERSON: '张倩',
+        PHONE: 18612112092,
         LNG: 121,
         LAT: 31
       }
     ];
 
-    var getServicePlaceList=function()
-    {
+    var getServicePlaceList = function () {
       return servicePlaceList;
     }
-    var deleteServicePlace= function (id) {
-      if(servicePlaceList!=null)
-      {
-        for(i=0;i<servicePlaceList.length;i++)
-        {
-          if(servicePlaceList[i].SERVICE_PLACE_ID==id)
-          {
-            servicePlaceList.splice(i,1);
+    var deleteServicePlace = function (id) {
+      if (servicePlaceList != null) {
+        for (i = 0; i < servicePlaceList.length; i++) {
+          if (servicePlaceList[i].SERVICE_PLACE_ID == id) {
+            servicePlaceList.splice(i, 1);
           }
         }
       }
     }
     //获取默认地址，即上一次的服务地址
-    var getLastUseServicePlace=function()
-    {
-      if(servicePlaceList!=null&&servicePlaceList.length>0)
-      {
+    var getLastUseServicePlace = function () {
+      if (servicePlaceList != null && servicePlaceList.length > 0) {
         return servicePlaceList[0];
       }
-      else
-      {
+      else {
         return null;
       }
     }
-    var addNewPlace=function(newplace)
-    {
+    var addNewPlace = function (newplace) {
       servicePlaceList.push(newplace);
     }
     return {
-      getServicePlaces:getServicePlaceList,
-      deleteServicePlace:deleteServicePlace,
-      getLastUseServicePlace:getLastUseServicePlace,
-      addNewPlace:addNewPlace
+      getServicePlaces: getServicePlaceList,
+      deleteServicePlace: deleteServicePlace,
+      getLastUseServicePlace: getLastUseServicePlace,
+      addNewPlace: addNewPlace
     }
   })
   //windowlocalstorage
-  .factory('ls',['$window',function($window){
+  .factory('ls', ['$window', function ($window) {
     return {
-      set: function(key, value) {
+      set: function (key, value) {
         $window.localStorage[key] = value;
       },
-      get: function(key, defaultValue) {
+      get: function (key, defaultValue) {
         return $window.localStorage[key] || defaultValue;
       },
-      setObject: function(key, value) {
+      setObject: function (key, value) {
         $window.localStorage[key] = JSON.stringify(value);
       },
-      getObject: function(key) {
+      getObject: function (key) {
         return JSON.parse($window.localStorage[key] || '{}');
       }
     }

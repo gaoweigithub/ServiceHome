@@ -26,14 +26,6 @@ angular.module('homeservice.homepage', [])
   //主页
   .controller('homepage', function (ENV, $rootScope, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, ls) {
 
-    var services = $resource("http://localhost:34413/GetCityService?userid=1000&acode=549937");
-    services.get({cityid: 1}, function (response) {
-      console.log('ok'+JSON.stringify(response))
-    }, function (err) {
-      console.log('err'+JSON.stringify(err))
-    });
-
-
     $rootScope.UserData = {
       phone: '1',
       matchno: '2'
@@ -58,7 +50,13 @@ angular.module('homeservice.homepage', [])
     console.log('homepage');
     $scope.advs = Advertisement.getAllAdvs();
 
-    $scope.BasicServices = SERVICE.getAllBasicServiceList();
+    //$scope.BasicServices =
+    SERVICE.getAllBasicServiceList().$promise.then(function (response) {
+      $scope.BasicServices=response;
+    }, function () {
+      console.log("loadservice err");
+    });
+    console.log('services:' + $scope.BasicServices);
 
     $ionicModal.fromTemplateUrl("modal.html", function (modal) {
         $scope.modal = modal;
@@ -75,19 +73,6 @@ angular.module('homeservice.homepage', [])
         animation: 'slide-in-up',
         focusFirstInput: true
       });
-    //$scope.deadline = function() {
-    //  var options = {
-    //    date: $scope.todo_date,
-    //    mode: 'date'
-    //  };
-    //  datePicker.show(options, function(d) {
-    //    if (!isNaN(d.getTime())) {  // valid date
-    //      $scope.$apply(function () {
-    //        $scope.todo_date = d;
-    //      });
-    //    }
-    //  });
-    //}
 
   })
 //业务计划列表
