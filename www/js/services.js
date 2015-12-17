@@ -21,15 +21,9 @@ angular.module('homeservice.services', [])
 //订单字典表
   .factory('SERVICE', function ($resource) {
 
-
-    var getAllBasicServiceList = function () {
-
-      var servicesResource = $resource("http://localhost:34413/GetCityService?userid=1000&acode=549937");
-      servicesResource.get({cityid: 1}, function (response) {
-        return JSON.stringify(response.ServiceList);
-      }, function (err) {
-        console.log('err' + JSON.stringify(err))
-      });
+    var servicesResource = $resource("http://localhost:34413/GetCityService?userid=1000&acode=549937");
+    var getAllService = function () {
+      return servicesResource.get({cityid: 1});
     };
     var getServicePlanList = function (basicServiceID) {
       for (i = 0; i < services.length; i++) {
@@ -52,7 +46,7 @@ angular.module('homeservice.services', [])
       return null;
     };
     return {
-      getAllBasicServiceList: getAllBasicServiceList,
+      getAllBasicServiceList: getAllService,
       getServicePlanList: getServicePlanList,
       getServicePlan: getServicePlan
     };

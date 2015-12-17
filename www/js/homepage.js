@@ -26,6 +26,26 @@ angular.module('homeservice.homepage', [])
   //主页
   .controller('homepage', function (ENV, $rootScope, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, ls) {
 
+    var getServiceList = function () {
+      return SERVICE.getAllBasicServiceList().$promise.then(function (response) {
+        console.log('哇结果出来了');
+        console.log(response.ServiceList);
+        $scope.BasicServices = response.ServiceList;
+      });
+    }
+
+    $scope.doRefresh = function () {
+
+      getServiceList().then(function()
+      {
+        console.log('哇 下拉更新啦');
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+
+
+    }
+    getServiceList();
+
     $rootScope.UserData = {
       phone: '1',
       matchno: '2'
@@ -50,12 +70,6 @@ angular.module('homeservice.homepage', [])
     console.log('homepage');
     $scope.advs = Advertisement.getAllAdvs();
 
-    //$scope.BasicServices =
-    SERVICE.getAllBasicServiceList().$promise.then(function (response) {
-      $scope.BasicServices=response;
-    }, function () {
-      console.log("loadservice err");
-    });
     console.log('services:' + $scope.BasicServices);
 
     $ionicModal.fromTemplateUrl("modal.html", function (modal) {
