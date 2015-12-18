@@ -95,7 +95,7 @@ angular.module('homeservice',
       //价格计划
       .state('tab.rateplan',
       {
-        url:'/homepage/rateplan/:serviceid/:serviceplan_id/:servicename',
+        url:'/homepage/rateplan/:serviceid/:servicename',
         views:{
           'tab-homepage':{
             templateUrl:'views/homepage/hp_rateplan.html',

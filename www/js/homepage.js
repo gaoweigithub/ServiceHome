@@ -31,20 +31,30 @@ angular.module('homeservice.homepage', [])
         console.log('哇结果出来了');
         console.log(response.ServiceList);
         $scope.BasicServices = response.ServiceList;
+        SERVICE.setServiceListCache(response.ServiceList);
       });
     }
 
     $scope.doRefresh = function () {
 
-      getServiceList().then(function()
-      {
+      getServiceList().then(function () {
         console.log('哇 下拉更新啦');
         $scope.$broadcast('scroll.refreshComplete');
       });
 
 
     }
-    getServiceList();
+    console.log('开始加载');
+    console.log(SERVICE.getServiceListCache().Service_ID);
+    //getServiceList();
+    if (SERVICE.getServiceListCache() != null && SERVICE.getServiceListCache().SERVICE_ID != undefined) {
+      console.log('哈哈 我有');
+      $scope.BasicServices = SERVICE.getServiceListCache();
+    }
+    else {
+      console.log('擦 没有啊');
+      getServiceList();
+    }
 
     $rootScope.UserData = {
       phone: '1',

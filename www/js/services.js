@@ -21,14 +21,24 @@ angular.module('homeservice.services', [])
 //订单字典表
   .factory('SERVICE', function ($resource) {
 
+    var servicelistcache={};
+
+    var setServiceListCache=function(sl)
+    {
+      servicelistcache=sl;
+    }
+
+    var getServiceListCache= function () {
+      return servicelistcache;
+    }
     var servicesResource = $resource("http://localhost:34413/GetCityService?userid=1000&acode=549937");
     var getAllService = function () {
       return servicesResource.get({cityid: 1});
     };
     var getServicePlanList = function (basicServiceID) {
-      for (i = 0; i < services.length; i++) {
-        if (services[i].SERVICE_ID == basicServiceID) {
-          return services[i].SERVICE_ITEMS;
+      for (i = 0; i < servicelistcache.length; i++) {
+        if (servicelistcache[i].SERVICE_ID == basicServiceID) {
+          return servicelistcache[i].SERVICE_ITEMS;
         }
       }
       return null;
@@ -48,7 +58,9 @@ angular.module('homeservice.services', [])
     return {
       getAllBasicServiceList: getAllService,
       getServicePlanList: getServicePlanList,
-      getServicePlan: getServicePlan
+      getServicePlan: getServicePlan,
+      setServiceListCache:setServiceListCache,
+      getServiceListCache:getServiceListCache
     };
   })
 
