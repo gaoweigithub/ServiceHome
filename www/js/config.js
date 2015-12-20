@@ -11,11 +11,5 @@ angular.module("homeservice.config", [])
     appleId: '',
     version: '',
     server: 'http://localhost:34413/',
-    userid: 1000,
-    acode: '549937',
-    parameters: 'format=json&userid=1000&acode=549937',
-    getserveruri: function (requestname) {
-      return 'http://localhost:34413/' + requestname + '?format=json&userid=1000&acode=549937';
-    }
   })
 ;

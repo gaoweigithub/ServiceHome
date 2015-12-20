@@ -201,5 +201,25 @@ angular.module('homeservice.common', [])
         time_minute: $scope.selectDatetime.time_minute
       };
     }
+  })
+  .factory('commontool', function ($ionicPopup, ENV, $rootScope) {
+    var createUri = function (interfaceName) {
+      return ENV.server + interfaceName;
+    };
+
+    var createGetparam = function () {
+      if ($rootScope.UserData != null && $rootScope.UserData.userid != '' && $rootScope.UserData.matchno != '') {
+        return 'userid=' + $rootScope.UserData.userid + '&acode=' + $rootScope.UserData.matchno;
+      }
+      else {
+        return '';
+      }
+    }
+
+
+    return {
+      createUri: createUri,
+      createGetparam: createGetparam
+    }
   });
 

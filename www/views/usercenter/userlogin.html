@@ -1,18 +1,24 @@
 <ion-view title="Login">
-  <ion-content padding="true" class="has-header">
+  <ion-content padding="true">
     <form class="list">
       <ion-list>
         <label class="item item-input">
           <!--<span class="input-label">Username</span>-->
-          <input type="text" placeholder="请输入手机号">
-          <div class="button button-balanced" ng-click="sendConfirmNo()">发送验证码</div>
+          <input type="text" placeholder="请输入手机号" ng-model="phonecheck.userPhoneNO">
+
+
         </label>
         <label class="item item-input">
           <!--<span class="input-label">Password</span>-->
-          <input type="password" placeholder="请输入验证码">
+          <input type="password" placeholder="请输入验证码" ng-model="phonecheck.userCheckCode">
         </label>
       </ion-list>
-      <button class="button button-calm button-block " ng-click="ConfirmLogin()">确定</button>
+      <button class="button button-balanced button-block" ng-click="sendConfirmNo()">
+        {{buttonText.sendCheckcode}}
+      </button>
+      <button class="button button-calm button-block " ng-click="ConfirmLogin()" ng-show="buttonText.ifsend">
+        {{buttonText.sendLoginConfirm}}
+      </button>
     </form>
   </ion-content>
 </ion-view>

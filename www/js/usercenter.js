@@ -1,26 +1,124 @@
 /**
  * Created by gaowe on 2015/11/17.
  */
-angular.module('homeservice.usercenter',[])
+angular.module('homeservice.usercenter', [])
   //用户登录
-  .controller('userlogin', function ($scope, $rootScope, $state, $location, ls) {
+  .controller('userlogin', function ($scope, $rootScope, $ionicPopup, $state, $location, ls, $resource, $interval, commontool,$timeout) {
+
+    $scope.phonecheck = {userPhoneNO: '', userCheckCode: ''};
+    $scope.buttonText = {sendCheckcode: '发送验证码', sendLoginConfirm: '确定', secondCounter: 0, ifsend: false};
     console.log('userlogin');
+    var sfn = function (response) {
+      console.log(JSON.stringify(response));
+      $scope.ifsend = true;
+      var alertPopup = $ionicPopup.alert({
+        template: response.ResponseStatus.ErrorList[0],
+        okText: '确定'
+      });
+      alertPopup.then(function (res) {
+        console.log('发送验证码成功');
+      });
+    };
+    var efn = function (response) {
+      var alertPopup = $ionicPopup.alert({
+
+        template: '发送验证码失败',
+        okText: '确定'
+      });
+      alertPopup.then(function (res) {
+        console.log('发送验证码失败');
+      });
+    };
     //发送验证码
     $scope.sendConfirmNo = function () {
-      console.log('sendmatchno');
+      if ($scope.phonecheck.userPhoneNO == '' || $scope.phonecheck.userCheckCode == null) {
+        $ionicPopup.alert({
+          template: '手机号不能为空',
+          okText: '确定'
+        });
+      }
+      else if ($scope.buttonText.secondCounter != 0) {
+        $ionicPopup.alert({
+          template: $scope.buttonText.secondCounter + '秒后再试!',
+          okText: '确定'
+        });
+      }
+      else {
+        console.log('sendmatchno');
+        var resource = $resource("http://localhost:34413/SendSMSCheckCode");
+        console.log($scope.phonecheck.userPhoneNO);
+        resource.get({PhoneNO: $scope.phonecheck.userPhoneNO}, function (response) {
+          console.log(response.ResponseStatus.isSuccess);
+          if (response.ResponseStatus.isSuccess) {
+            $scope.buttonText.ifsend = true;
+            $scope.buttonText.secondCounter = 60;
+            $interval(function () {
+              $scope.buttonText.sendCheckcode = $scope.buttonText.secondCounter + '秒后再试!';
+              $scope.buttonText.secondCounter = $scope.buttonText.secondCounter - 1;
+            }, 1000, 60).then(function () {
+              $scope.buttonText.sendCheckcode = '发送验证码'
+            });
+            sfn(response);
+          }
+          else {
+            efn(response);
+          }
+        }, efn);
+      }
     }
+
     //确认登录
     $scope.ConfirmLogin = function () {
-      console.log('confirmlogin');
-      console.log(window.localStorage);
-      ls.setObject('userData', {
-        phone: 18612112092,
-        matchno: 12345
-      });
-      var userdata = ls.getObject('userData', null);
-      console.log(userdata);
-      $rootScope.UserData = userdata;
-      $state.go('tab.usercenter', {}, {reload: true});
+      //check
+      if ($scope.phonecheck.userCheckCode != '' && $scope.phonecheck.userCheckCode.length != 6) {
+        $ionicPopup.alert({
+          template: '验证码不正确',
+          okText: '重新填写'
+        });
+      }
+      else {
+        console.log(commontool.createUri('CheckAndLogin'));
+        //resource
+        var loginresource = $resource(commontool.createUri('CheckAndLogin'));
+        loginresource.get({PhoneNO: $scope.phonecheck.userPhoneNO, CheckCode: $scope.phonecheck.userCheckCode},
+          function (suc) {
+            if (suc.ResponseStatus.isSuccess) {
+              $timeout(function () {
+                  $ionicPopup.alert({
+                    template: '登陆成功',
+                    okText: '确认'
+                  });
+                },
+                2000);
+            }
+            else {
+              $ionicPopup.alert({
+                template: '登录失败',
+                okText: '重试'
+              });
+            }
+          },
+          function (err) {
+            $ionicPopup.alert({
+              template: '登录失败',
+              okText: '重试'
+            });
+          }
+        );
+
+
+      }
+
+
+      //console.log('confirmlogin');
+      //ls.setObject('userData', {
+      //  phone: 18612112092,
+      //  matchno: 12345
+      //});
+      //var userdata = ls.getObject('userData', null);
+      //console.log(userdata);
+      //$rootScope.UserData = userdata;
+      //$state.go('tab.usercenter', {}, {reload: true});
     }
 
   })
