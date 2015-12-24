@@ -3,9 +3,9 @@
  */
 angular.module('homeservice.usercenter', [])
   //用户登录
-  .controller('userlogin', function ($scope, $rootScope, $ionicPopup, $state, $location, ls, $resource, $interval, commontool,$timeout) {
+  .controller('userlogin', function ($scope, $rootScope, $ionicPopup, $state, $location, ls, $resource, $interval, commontool, $timeout) {
 
-    $scope.phonecheck = {userPhoneNO: '', userCheckCode: ''};
+    $scope.phonecheck = {userPhoneNO: '', userID: '', userCheckCode: ''};
     $scope.buttonText = {sendCheckcode: '发送验证码', sendLoginConfirm: '确定', secondCounter: 0, ifsend: false};
     console.log('userlogin');
     var sfn = function (response) {
@@ -83,13 +83,31 @@ angular.module('homeservice.usercenter', [])
         loginresource.get({PhoneNO: $scope.phonecheck.userPhoneNO, CheckCode: $scope.phonecheck.userCheckCode},
           function (suc) {
             if (suc.ResponseStatus.isSuccess) {
+              //缓存返回的userid和验证码
+              $rootScope.phonecheck = {
+                userPhoneNO: $scope.phonecheck.userPhoneNO,
+                userID: suc.USERID,
+                userCheckCode: $scope.phonecheck.userCheckCode,
+                isLogin: true
+              };
+
+              console.log('登陆成功！！' + JSON.stringify(suc) + JSON.stringify($rootScope.phonecheck));
+
+              ls.set('userinfo', JSON.stringify($rootScope.phonecheck));
+
               $timeout(function () {
                   $ionicPopup.alert({
                     template: '登陆成功',
                     okText: '确认'
+                  }).then(function () {
+                    //设置登录状态并且跳转页面
+                    $state.go('tab.usercenter', {}, {reload: true});
                   });
+
                 },
-                2000);
+                0);
+
+
             }
             else {
               $ionicPopup.alert({
@@ -122,7 +140,7 @@ angular.module('homeservice.usercenter', [])
     }
 
   })
-//个人中心
+  //个人中心
   .controller('usercenter', function ($scope, $rootScope, $ionicPopup, $state, ls) {
     if (!ls.getObject('userData', null)) {
       console.log('false');

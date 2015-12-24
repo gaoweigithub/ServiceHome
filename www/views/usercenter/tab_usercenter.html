@@ -4,12 +4,12 @@
 
       <div class="item item-divider">帐号</div>
 
-      <div class="item item-icon-left item-button-right" ng-show="isLogin">
+      <div class="item item-icon-left item-button-right" ng-show="phonecheck.isLogin">
         <i class="icon ion-ios-person"></i>
         {{UserData.phone}}
         <button class="button button-assertive" ng-click="logout()">退出</button>
       </div>
-      <div class="item item-icon-left item-button-right" ng-show="!isLogin">
+      <div class="item item-icon-left item-button-right" ng-show="!phonecheck.isLogin">
         <i class="icon ion-ios-person"></i>
         暂未登录
         <button class="button button-positive" ng-click="login()">登录</button>

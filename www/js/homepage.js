@@ -26,21 +26,47 @@ angular.module('homeservice.homepage', [])
   //主页
   .controller('homepage', function (ENV, $rootScope, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, ls) {
 
+    $rootScope.phonecheck = {userPhoneNO: undefined, userID: undefined, userCheckCode: undefined, isLogin: false};
+
+
+    var userinfo = JSON.parse(ls.get('userinfo', null));
+    console.log('有缓存的' + JSON.stringify(userinfo));
+    if (userinfo != null && userinfo.userID != '' && userinfo.userID != undefined) {
+      $rootScope.phonecheck = userinfo;
+    }
     var getServiceList = function () {
-      return SERVICE.getAllBasicServiceList().$promise.then(function (response) {
-        console.log('哇结果出来了');
-        console.log(response.ServiceList);
-        $scope.BasicServices = response.ServiceList;
-        SERVICE.setServiceListCache(response.ServiceList);
-      });
+      if ($rootScope.phonecheck.userID != undefined) {
+        var url = "http://localhost:34413/GetCityService?userid=" + $rootScope.phonecheck.userID + "&acode=" + $rootScope.phonecheck.userCheckCode;
+        return SERVICE.getAllBasicServiceList(url, 3).$promise.then(function (response) {
+          console.log('哇结果出来了');
+          console.log(response.ServiceList);
+          $scope.BasicServices = response.ServiceList;
+          SERVICE.setServiceListCache(response.ServiceList);
+        });
+      }
+      else {
+        return null;
+      }
     }
 
     $scope.doRefresh = function () {
 
-      getServiceList().then(function () {
-        console.log('哇 下拉更新啦');
-        $scope.$broadcast('scroll.refreshComplete');
-      });
+      var result = getServiceList();
+      if (result != null) {
+        result.then(function () {
+          console.log('哇 下拉更新啦');
+          $scope.$broadcast('scroll.refreshComplete');
+        });
+      }
+      else {
+        $timeout(function () {
+            $ionicPopup.alert({
+              template: '刷新失败',
+              okText: '返回'
+            });
+          },
+          2000);
+      }
 
 
     }
@@ -99,7 +125,7 @@ angular.module('homeservice.homepage', [])
       });
 
   })
-//业务计划列表
+  //业务计划列表
   .controller('serviceplanlist', function ($scope, $stateParams, SERVICE) {
     var serviceid = $stateParams.serviceid;
     var servicename = $stateParams.servicename;
@@ -107,7 +133,7 @@ angular.module('homeservice.homepage', [])
     $scope.ServiceName = servicename;
     $scope.ServicePlanList = SERVICE.getServicePlanList(serviceid);
   })
-//价格计划
+  //价格计划
   .controller('rateplan', function ($rootScope, $scope, $stateParams, RATE_PLAN, SERVICE, $state) {
     console.log($rootScope.hideTabs);
     console.log($rootScope.cityID);

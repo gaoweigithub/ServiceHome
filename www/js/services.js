@@ -19,7 +19,7 @@ angular.module('homeservice.services', [])
   })
 
 //订单字典表
-  .factory('SERVICE', function ($resource) {
+  .factory('SERVICE', function ($resource,$rootScope) {
 
     var servicelistcache={};
 
@@ -31,9 +31,9 @@ angular.module('homeservice.services', [])
     var getServiceListCache= function () {
       return servicelistcache;
     }
-    var servicesResource = $resource("http://localhost:34413/GetCityService?userid=1000&acode=549937");
-    var getAllService = function () {
-      return servicesResource.get({cityid: 1});
+    var getAllService = function (url,cityid) {
+      var servicesResource = $resource(url);
+      return servicesResource.get({cityid: cityid});
     };
     var getServicePlanList = function (basicServiceID) {
       for (i = 0; i < servicelistcache.length; i++) {

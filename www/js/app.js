@@ -19,7 +19,6 @@ angular.module('homeservice',
     }
   });
 })
-
   .config(function($ionicConfigProvider)
   {
     $ionicConfigProvider.tabs.position('bottom');
