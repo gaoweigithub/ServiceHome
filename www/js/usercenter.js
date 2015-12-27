@@ -126,17 +126,6 @@ angular.module('homeservice.usercenter', [])
 
 
       }
-
-
-      //console.log('confirmlogin');
-      //ls.setObject('userData', {
-      //  phone: 18612112092,
-      //  matchno: 12345
-      //});
-      //var userdata = ls.getObject('userData', null);
-      //console.log(userdata);
-      //$rootScope.UserData = userdata;
-      //$state.go('tab.usercenter', {}, {reload: true});
     }
 
   })

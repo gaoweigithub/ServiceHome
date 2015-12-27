@@ -6,7 +6,7 @@
 
       <div class="item item-icon-left item-button-right" ng-show="phonecheck.isLogin">
         <i class="icon ion-ios-person"></i>
-        {{UserData.phone}}
+        {{phonecheck.userPhoneNO||'未设置'}}
         <button class="button button-assertive" ng-click="logout()">退出</button>
       </div>
       <div class="item item-icon-left item-button-right" ng-show="!phonecheck.isLogin">

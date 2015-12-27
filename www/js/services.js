@@ -2,7 +2,23 @@
  * Created by gaowe on 2015/10/7.
  */
 angular.module('homeservice.services', [])
-
+  //windowlocalstorage
+  .factory('ls', ['$window', function ($window) {
+    return {
+      set: function (key, value) {
+        $window.localStorage[key] = value;
+      },
+      get: function (key, defaultValue) {
+        return $window.localStorage[key] || defaultValue;
+      },
+      setObject: function (key, value) {
+        $window.localStorage[key] = JSON.stringify(value);
+      },
+      getObject: function (key) {
+        return JSON.parse($window.localStorage[key] || '{}');
+      }
+    }
+  }])
   //首页图片广告
   .factory('Advertisement', function () {
     var advs = [
@@ -18,20 +34,19 @@ angular.module('homeservice.services', [])
     };
   })
 
-//订单字典表
-  .factory('SERVICE', function ($resource,$rootScope) {
+  //订单字典表
+  .factory('SERVICE', function ($resource, $rootScope) {
 
-    var servicelistcache={};
+    var servicelistcache = {};
 
-    var setServiceListCache=function(sl)
-    {
-      servicelistcache=sl;
+    var setServiceListCache = function (sl) {
+      servicelistcache = sl;
     }
 
-    var getServiceListCache= function () {
+    var getServiceListCache = function () {
       return servicelistcache;
     }
-    var getAllService = function (url,cityid) {
+    var getAllService = function (url, cityid) {
       var servicesResource = $resource(url);
       return servicesResource.get({cityid: cityid});
     };
@@ -59,12 +74,12 @@ angular.module('homeservice.services', [])
       getAllBasicServiceList: getAllService,
       getServicePlanList: getServicePlanList,
       getServicePlan: getServicePlan,
-      setServiceListCache:setServiceListCache,
-      getServiceListCache:getServiceListCache
+      setServiceListCache: setServiceListCache,
+      getServiceListCache: getServiceListCache
     };
   })
 
-//价格计划
+  //价格计划
   .factory('RATE_PLAN', function () {
     var rate_plans =
       [
@@ -178,12 +193,23 @@ angular.module('homeservice.services', [])
     };
   })
 
-  .factory('CITIES', function () {
-    var open_cities = [
-      {cityID: '3', cityName: '常州'}
-    ];
-    var locate_city = {cityID: '3', cityName: '常州'};
-
+  .factory('CITIES', function ($resource) {
+    var open_cities = null;
+    var locate_city = null;
+    if (open_cities == null) {
+      //服务器
+      var cityresource = $resource('http://localhost:34413/GetOpenedCity');
+      cityresource.get(function (suc) {
+        console.log(suc);
+        if (suc != null && suc.DATA != undefined && suc.ResponseStatus.isSuccess == true) {
+          console.log('获取城市列表成功');
+          console.log(suc.DATA)
+          open_cities = suc.DATA;
+        }
+      }, function (err) {
+        console.log('获取城市列表出错');
+      });
+    };
     //获取已开通城市列表
     var getOpenCityList = function () {
       return open_cities;
@@ -202,14 +228,17 @@ angular.module('homeservice.services', [])
       for (var name in  locate_city) {
         return locate_city;
       }
-      return {cityID: -1, cityName: "定位失败，点击重试.."}
+      return {CITYID: -1, CITYNAME: "定位失败，点击重试.."}
     };
     //重新定位
     var reLocat = function () {
       locate_city = {
-        cityID: '3', cityName: '常州'
+        CITYID: '1', CITYNAME: '常州'
       };
       return locate_city;
+    };
+    var setCityList = function (data) {
+      open_cities = data;
     }
     return {
       getOpenCityList: getOpenCityList,
@@ -314,23 +343,7 @@ angular.module('homeservice.services', [])
       addNewPlace: addNewPlace
     }
   })
-  //windowlocalstorage
-  .factory('ls', ['$window', function ($window) {
-    return {
-      set: function (key, value) {
-        $window.localStorage[key] = value;
-      },
-      get: function (key, defaultValue) {
-        return $window.localStorage[key] || defaultValue;
-      },
-      setObject: function (key, value) {
-        $window.localStorage[key] = JSON.stringify(value);
-      },
-      getObject: function (key) {
-        return JSON.parse($window.localStorage[key] || '{}');
-      }
-    }
-  }])
+
   .factory('pingpp', ['$q', '$window', function ($q, $window) {
     return {
       createPayment: function (charge) {

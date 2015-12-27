@@ -24,13 +24,12 @@
       <file leaf-file-name="services.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/services.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+            <state vertical-scroll-proportion="-21.266666">
+              <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
               <folding>
-                <element signature="e#1997#4773#0" expanded="false" />
-                <element signature="e#5814#6766#0" expanded="false" />
-                <element signature="e#6817#8266#0" expanded="false" />
-                <element signature="e#8837#9123#0" expanded="false" />
+                <element signature="e#2515#5291#0" expanded="false" />
+                <element signature="e#6813#7765#0" expanded="false" />
+                <element signature="e#7816#9265#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -39,8 +38,18 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.586206">
-              <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
+            <state vertical-scroll-proportion="-8.290322">
+              <caret line="16" column="67" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tab_homepage.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/views/homepage/tab_homepage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6207675">
+              <caret line="46" column="80" selection-start-line="46" selection-start-column="75" selection-end-line="46" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -49,23 +58,47 @@
       <file leaf-file-name="homepage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/homepage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="112" selection-start-line="28" selection-start-column="98" selection-end-line="28" selection-end-column="112" />
+            <state vertical-scroll-proportion="-12.466666">
+              <caret line="139" column="28" selection-start-line="139" selection-start-column="28" selection-end-line="139" selection-end-column="28" />
               <folding>
-                <element signature="e#4225#9963#0" expanded="false" />
+                <element signature="e#4945#10683#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="usercenter.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.0666666">
+              <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="usercenter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/usercenter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43179256">
-              <caret line="91" column="16" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="16" />
+            <state vertical-scroll-proportion="-63.066666">
+              <caret line="95" column="37" selection-start-line="95" selection-start-column="33" selection-end-line="95" selection-end-column="37" />
               <folding>
-                <element signature="e#482#773#0" expanded="false" />
                 <element signature="e#809#1001#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/js/common.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.733334">
+              <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="130" selection-end-column="7" />
+              <folding>
+                <element signature="e#194#719#0" expanded="false" />
+                <element signature="e#809#3024#0" expanded="false" />
+                <element signature="e#3123#3907#0" expanded="false" />
+                <element signature="e#5590#6898#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -74,44 +107,8 @@
       <file leaf-file-name="orders.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/orders.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-7.8333335">
               <caret line="40" column="11" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/js/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="188" column="4" selection-start-line="188" selection-start-column="4" selection-end-line="188" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/js/common.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="204" column="22" selection-start-line="204" selection-start-column="12" selection-end-line="204" selection-end-column="22" />
-              <folding>
-                <element signature="e#194#719#0" expanded="false" />
-                <element signature="e#809#3024#0" expanded="false" />
-                <element signature="e#3123#3907#0" expanded="false" />
-                <element signature="e#3999#5183#0" expanded="false" />
-                <element signature="e#5254#6562#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="userlogin.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/views/usercenter/userlogin.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.206896">
-              <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -121,17 +118,17 @@
         <entry file="file://$PROJECT_DIR$/www/js/config.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <caret line="12" column="36" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tab_usercenter.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/views/usercenter/tab_usercenter.html">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.931034">
-              <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+            <state vertical-scroll-proportion="-6.3333335">
+              <caret line="53" column="54" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -192,17 +189,17 @@
         <option value="$PROJECT_DIR$/www/js/orders.js" />
         <option value="$PROJECT_DIR$/platforms/android/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/platforms/ios/homeservice_01/config.xml" />
-        <option value="$PROJECT_DIR$/www/views/homepage/tab_homepage.html" />
         <option value="$PROJECT_DIR$/www/views/homepage/serviceplanlist.html" />
         <option value="$PROJECT_DIR$/www/js/config.js" />
-        <option value="$PROJECT_DIR$/www/js/common.js" />
         <option value="$PROJECT_DIR$/www/index.html" />
         <option value="$PROJECT_DIR$/www/views/usercenter/userlogin.html" />
         <option value="$PROJECT_DIR$/www/js/app.js" />
-        <option value="$PROJECT_DIR$/www/js/services.js" />
-        <option value="$PROJECT_DIR$/www/js/homepage.js" />
         <option value="$PROJECT_DIR$/www/js/usercenter.js" />
         <option value="$PROJECT_DIR$/www/views/usercenter/tab_usercenter.html" />
+        <option value="$PROJECT_DIR$/www/js/services.js" />
+        <option value="$PROJECT_DIR$/www/js/common.js" />
+        <option value="$PROJECT_DIR$/www/views/homepage/tab_homepage.html" />
+        <option value="$PROJECT_DIR$/www/js/homepage.js" />
       </list>
     </option>
   </component>
@@ -218,8 +215,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
+    <option name="width" value="1917" />
     <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -247,6 +243,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -406,7 +403,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -495,11 +491,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="0" width="1917" height="1056" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18802084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18832193" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946146" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -540,7 +536,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="127" selection-start-line="16" selection-start-column="112" selection-end-line="16" selection-end-column="127" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -548,7 +543,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="26" column="90" selection-start-line="26" selection-start-column="85" selection-end-line="26" selection-end-column="90" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -565,10 +559,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="100" selection-start-line="33" selection-start-column="76" selection-end-line="33" selection-end-column="100" />
           <folding>
-            <element signature="e#1997#4773#0" expanded="false" />
-            <element signature="e#5814#6766#0" expanded="false" />
-            <element signature="e#6817#8266#0" expanded="false" />
-            <element signature="e#8837#9123#0" expanded="false" />
+            <element signature="e#2515#5291#0" expanded="false" />
+            <element signature="e#6813#7765#0" expanded="false" />
+            <element signature="e#7816#9265#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -586,7 +579,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="42" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
           <folding>
-            <element signature="e#4225#9963#0" expanded="false" />
+            <element signature="e#4945#10683#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -596,7 +589,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#482#773#0" expanded="false" />
             <element signature="e#809#1001#0" expanded="false" />
           </folding>
         </state>
@@ -610,8 +602,8 @@
             <element signature="e#194#719#0" expanded="false" />
             <element signature="e#809#3024#0" expanded="false" />
             <element signature="e#3123#3907#0" expanded="false" />
-            <element signature="e#3999#5183#0" expanded="false" />
-            <element signature="e#5254#6562#0" expanded="false" />
+            <element signature="e#4002#5519#0" expanded="false" />
+            <element signature="e#5590#6898#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -636,7 +628,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="127" selection-start-line="16" selection-start-column="112" selection-end-line="16" selection-end-column="127" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -644,7 +635,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="26" column="90" selection-start-line="26" selection-start-column="85" selection-end-line="26" selection-end-column="90" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -764,13 +754,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="44" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/views/homepage/serviceplanlist.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.0625">
@@ -813,18 +796,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/views/homepage/tab_homepage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.375">
-          <caret line="20" column="51" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/views/common/addnewplace.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="26" column="90" selection-start-line="26" selection-start-column="85" selection-end-line="26" selection-end-column="90" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -832,103 +807,115 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="127" selection-start-line="16" selection-start-column="112" selection-end-line="16" selection-end-column="127" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="204" column="22" selection-start-line="204" selection-start-column="12" selection-end-line="204" selection-end-column="22" />
-          <folding>
-            <element signature="e#194#719#0" expanded="false" />
-            <element signature="e#809#3024#0" expanded="false" />
-            <element signature="e#3123#3907#0" expanded="false" />
-            <element signature="e#3999#5183#0" expanded="false" />
-            <element signature="e#5254#6562#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.586206">
-          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/views/usercenter/userlogin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.206896">
+        <state vertical-scroll-proportion="0.0">
           <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/views/usercenter/tab_usercenter.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.612904">
+          <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/orders.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.8333335">
+          <caret line="40" column="11" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="188" column="4" selection-start-line="188" selection-start-column="4" selection-end-line="188" selection-end-column="4" />
+        <state vertical-scroll-proportion="-6.3333335">
+          <caret line="53" column="54" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/config.js">
+    <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/services.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
-          <folding>
-            <element signature="e#1997#4773#0" expanded="false" />
-            <element signature="e#5814#6766#0" expanded="false" />
-            <element signature="e#6817#8266#0" expanded="false" />
-            <element signature="e#8837#9123#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/orders.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="11" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/homepage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="112" selection-start-line="28" selection-start-column="98" selection-end-line="28" selection-end-column="112" />
-          <folding>
-            <element signature="e#4225#9963#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/views/usercenter/tab_usercenter.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.931034">
-          <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+        <state vertical-scroll-proportion="-7.0666666">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/usercenter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43179256">
-          <caret line="91" column="16" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="16" />
+        <state vertical-scroll-proportion="-63.066666">
+          <caret line="95" column="37" selection-start-line="95" selection-start-column="33" selection-end-line="95" selection-end-column="37" />
           <folding>
-            <element signature="e#482#773#0" expanded="false" />
             <element signature="e#809#1001#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="36" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.290322">
+          <caret line="16" column="67" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/services.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.266666">
+          <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
+          <folding>
+            <element signature="e#2515#5291#0" expanded="false" />
+            <element signature="e#6813#7765#0" expanded="false" />
+            <element signature="e#7816#9265#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.733334">
+          <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="130" selection-end-column="7" />
+          <folding>
+            <element signature="e#194#719#0" expanded="false" />
+            <element signature="e#809#3024#0" expanded="false" />
+            <element signature="e#3123#3907#0" expanded="false" />
+            <element signature="e#5590#6898#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/homepage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.466666">
+          <caret line="139" column="28" selection-start-line="139" selection-start-column="28" selection-end-line="139" selection-end-column="28" />
+          <folding>
+            <element signature="e#4945#10683#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/views/homepage/tab_homepage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6207675">
+          <caret line="46" column="80" selection-start-line="46" selection-start-column="75" selection-end-line="46" selection-end-column="80" />
+          <folding />
         </state>
       </provider>
     </entry>

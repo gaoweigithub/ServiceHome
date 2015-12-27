@@ -60,7 +60,6 @@ angular.module('homeservice',
       //个人中心
       .state('tab.usercenter',{
         url:'/usercenter',
-        cache:false,
         abstract:false,
         views:{
           'tab-usercenter':{

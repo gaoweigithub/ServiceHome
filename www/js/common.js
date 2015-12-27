@@ -118,43 +118,53 @@ angular.module('homeservice.common', [])
     };
   })
   //城市选择弹出框
-  .controller('ModalCtrl', function ($rootScope, $scope, $ionicModal, CITIES) {
-    var locateCity = CITIES.getLocateCity();
+  .controller('ModalCtrl', function ($rootScope, $scope, $ionicModal, CITIES,ls) {
 
-    $scope.selectCityID = locateCity.cityId;
-    $scope.selectCityName = locateCity.cityName;
+
+    var locateCity = CITIES.getLocateCity();
+    if (locateCity.CITYID==-1) {
+      //缓存
+      var cachecity = ls.get('SCI', null);
+      if (cachecity!=''&&cachecity!=null)
+      {
+        locateCity=JSON.parse(cachecity);
+      }
+    }
+    $scope.selectCityInfo={CITYID:locateCity.CITYID,CITYNAME:locateCity.CITYNAME};
 
 
     $scope.getOpenCityList = function () {
       return CITIES.getOpenCityList();
     };
     $scope.confirmLocate = function () {
-      $rootScope.cityInfo = {cityID: $scope.selectCityID, cityName: $scope.selectCityName};
+
+      ls.set('SCI',JSON.stringify($scope.selectCityInfo));
+      $rootScope.cityInfo = {CITYID: $scope.selectCityInfo.CITYID, CITYNAME: $scope.selectCityInfo.CITYNAME};
       $scope.modal.hide();
     };
     //选中城市
     $scope.onTouchCity = function (cityid, cityname) {
-      $scope.selectCityName = cityname;
-      $scope.selectCityID = cityid;
+      $scope.selectCityInfo.CITYNAME = cityname;
+      $scope.selectCityInfo.CITYID = cityid;
       $scope.confirmLocate();
     };
 
     $scope.getLocateCity = function () {
       var locateCity = CITIES.getLocateCity();
       if (!isString(locateCity)) {
-        $scope.selectCityID = locateCity.cityid;
-        $scope.selectCityName = locateCity.cityname;
+        $scope.selectCityInfo.CITYID = locateCity.cityid;
+        $scope.selectCityInfo.CITYNAME = locateCity.cityname;
       }
     };
 
     $scope.reLocat = function () {
       console.log('relocate');
 
-      if ($scope.selectCityID == -1) {
-        console.log($scope.selectCityID);
+      if ($scope.selectCityInfo.CITYID == -1) {
+        console.log($scope.selectCityInfo.CITYID);
         var locateCity = CITIES.reLocat();
-        $scope.selectCityID = locateCity.cityid;
-        $scope.selectCityName = locateCity.cityname;
+        $scope.selectCityInfo.CITYID = locateCity.cityid;
+        $scope.selectCityInfo.CITYNAME = locateCity.cityname;
       }
       else {
         $scope.confirmLocate();

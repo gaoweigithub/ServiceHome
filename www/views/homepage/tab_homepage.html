@@ -2,7 +2,7 @@
   <ion-nav-buttons side="left">
     <!--<a class="icon ion-chevron-down" ng-click="modal.show()">{{cityName}}</a>-->
     <!--<a class="button icon-left ion-chevron-down button-clear" ng-click="datetimemodal.show()">{{cityName}}</a>-->
-    <a class="button button-clear" ng-click="modal.show()">
+    <a class="button button-clear" ng-click="opencitylocate()">
       <i class="icon icon-left ion-ios-arrow-down button-small"></i>{{cityInfo.cityName}}
     </a>
   </ion-nav-buttons>
@@ -29,14 +29,14 @@
     <script id="modal.html" type="text/ng-template">
       <div class="modal" ng-controller="ModalCtrl">
         <ion-header-bar class="bar bar-header bar-positive">
-          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+          <button class="button button-clear button-primary" ng-click="closecitylocate()">Cancel</button>
           <h1 class="title">位置</h1>
         </ion-header-bar>
         <ion-content>
           <div class="list card">
             <div class="item item-divider">定位城市</div>
             <div class="item item-body">
-              <button class="button button-positive" ng-click="reLocat()">{{selectCityName}}</button>
+              <button class="button button-positive" ng-click="reLocat()">{{selectCityInfo.CITYNAME}}</button>
             </div>
           </div>
           <div class="list card">
@@ -44,8 +44,8 @@
             <div class="item item-body">
               <ion-list>
                 <ion-item ng-repeat="item in getOpenCityList()" type="item-text-wrap"
-                          ng-click="onTouchCity(item.cityID,item.cityName);modal.hide()">
-                  <h>{{item.cityName}}</h>
+                          ng-click="onTouchCity(item.CITYID,item.CITYNAME);modal.hide()">
+                  <h>{{item.CITYNAME}}</h>
                 </ion-item>
               </ion-list>
             </div>

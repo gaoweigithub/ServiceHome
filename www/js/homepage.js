@@ -24,7 +24,7 @@ angular.module('homeservice.homepage', [])
     }
   })
   //主页
-  .controller('homepage', function (ENV, $rootScope, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, ls) {
+  .controller('homepage', function (ENV, $rootScope, $timeout, $ionicPopup, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, ls) {
 
     $rootScope.phonecheck = {userPhoneNO: undefined, userID: undefined, userCheckCode: undefined, isLogin: false};
 
@@ -34,10 +34,18 @@ angular.module('homeservice.homepage', [])
     if (userinfo != null && userinfo.userID != '' && userinfo.userID != undefined) {
       $rootScope.phonecheck = userinfo;
     }
+    var CITYID = -1;
+    //缓存
+    var cachecity = ls.get('SCI', null);
+    if (cachecity != '' && cachecity != null) {
+      CITYID = JSON.parse(cachecity).CITYID;
+      console.log('缓存的cityid是' + CITYID);
+    }
+
     var getServiceList = function () {
-      if ($rootScope.phonecheck.userID != undefined) {
+      if ($rootScope.phonecheck.userID != undefined && CITYID != -1) {
         var url = "http://localhost:34413/GetCityService?userid=" + $rootScope.phonecheck.userID + "&acode=" + $rootScope.phonecheck.userCheckCode;
-        return SERVICE.getAllBasicServiceList(url, 3).$promise.then(function (response) {
+        return SERVICE.getAllBasicServiceList(url, CITYID).$promise.then(function (response) {
           console.log('哇结果出来了');
           console.log(response.ServiceList);
           $scope.BasicServices = response.ServiceList;
@@ -64,6 +72,7 @@ angular.module('homeservice.homepage', [])
               template: '刷新失败',
               okText: '返回'
             });
+            $scope.$broadcast('scroll.refreshComplete');
           },
           2000);
       }
@@ -124,6 +133,21 @@ angular.module('homeservice.homepage', [])
         focusFirstInput: true
       });
 
+    $scope.opencitylocate = function () {
+      $scope.modal.show();
+    }
+    $scope.closecitylocate = function () {
+      console.log('我要关闭窗口');
+      $scope.modal.hide();
+      var cachecity = ls.get('SCI', null);
+      if (cachecity != null && cachecity.CITYID != undefined) {
+        if (cachecity.CITYID!=CITYID)
+        {
+          //如果选择的城市不同则刷新
+          getServiceList();
+        }
+      }
+    }
   })
   //业务计划列表
   .controller('serviceplanlist', function ($scope, $stateParams, SERVICE) {
