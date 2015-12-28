@@ -2,6 +2,84 @@
  * Created by gaowe on 2015/10/7.
  */
 angular.module('homeservice.services', [])
+  .factory('Storage', function () {
+    "use strict";
+    return {
+      set: function (key, data) {
+        return window.localStorage.setItem(key, window.JSON.stringify(data));
+      },
+      get: function (key) {
+
+        return window.JSON.parse(window.localStorage.getItem(key));
+      },
+      remove: function (key) {
+        return window.localStorage.removeItem(key);
+      }
+    };
+  })
+  .factory('Push', function (ENV) {
+    var push;
+    return {
+      setBadge: function (badge) {
+        if (push) {
+
+          plugins.jPushPlugin.setBadge(badge);
+        }
+      },
+      resetBadge: function () {
+        if (push) {
+          plugins.jPushPlugin.resetBadge();
+        }
+      },
+      setAlias: function (alias) {
+        if (push) {
+          plugins.jPushPlugin.setAlias(alias);
+
+        }
+      },
+      check: function () {
+
+        if (window.jpush && push) {
+
+          window.jpush = null;
+        }
+      },
+      init: function (notificationCallback) {
+
+
+        push = window.plugins && window.plugins.jPushPlugin;
+        if (push) {
+
+
+          plugins.jPushPlugin.init();
+          plugins.jPushPlugin.setDebugMode(false);
+          try {
+            if (plugins.jPushPlugin.isPlatformIOS()) {
+              plugins.jPushPlugin.setLogOFF();
+            }
+            plugins.jPushPlugin.openNotificationInAndroidCallback = notificationCallback;
+
+            plugins.jPushPlugin.receiveNotificationIniOSCallback = notificationCallback;
+          } catch (exception) {
+            console.debug('exception--------------------');
+            console.debug("JPushPlugin initexception ： " + exception);
+          }
+        }
+      },
+      stopPush: function () {
+        // 停止推送
+        plugins.jPushPlugin.stopPush();
+
+
+      },
+      resumePush: function () {
+        // 唤醒推送
+
+        plugins.jPushPlugin.resumePush();
+
+      }
+    };
+  })
   //windowlocalstorage
   .factory('ls', ['$window', function ($window) {
     return {
@@ -193,35 +271,24 @@ angular.module('homeservice.services', [])
     };
   })
 
-  .factory('CITIES', function ($resource) {
+  .factory('CITIES', function ($resource, ENV, Storage) {
+    var citykey = 'selectedcity';
     var open_cities = null;
     var locate_city = null;
-    if (open_cities == null) {
-      //服务器
-      var cityresource = $resource('http://localhost:34413/GetOpenedCity');
-      cityresource.get(function (suc) {
-        console.log(suc);
-        if (suc != null && suc.DATA != undefined && suc.ResponseStatus.isSuccess == true) {
-          console.log('获取城市列表成功');
-          console.log(suc.DATA)
-          open_cities = suc.DATA;
-        }
-      }, function (err) {
-        console.log('获取城市列表出错');
-      });
-    };
+    var cityresource = $resource(ENV.server + 'GetOpenedCity');
+    cityresource.get(function (suc) {
+      console.log(suc);
+      if (suc != null && suc.DATA != undefined && suc.ResponseStatus.isSuccess == true) {
+        console.log('获取城市列表成功');
+        console.log(suc.DATA)
+        open_cities = suc.DATA;
+      }
+    }, function (err) {
+      console.log('获取城市列表出错');
+    });
     //获取已开通城市列表
     var getOpenCityList = function () {
       return open_cities;
-    };
-    var getSelectedCity = function (cityID) {
-      if (open_cities == null)return null;
-      for (i = 0; i < open_cities.length; i++) {
-        if (open_cities[i].cityid == cityID) {
-          return open_cities[i];
-        }
-      }
-      return null;
     };
     //获取定位城市
     var getLocateCity = function () {
@@ -235,6 +302,7 @@ angular.module('homeservice.services', [])
       locate_city = {
         CITYID: '1', CITYNAME: '常州'
       };
+      this.setCurrentCity(locate_city);
       return locate_city;
     };
     var setCityList = function (data) {
@@ -242,9 +310,14 @@ angular.module('homeservice.services', [])
     }
     return {
       getOpenCityList: getOpenCityList,
-      getSelectedCity: getSelectedCity,
+      getSelectedCity: function () {
+        return Storage.get(citykey);
+      },
       getLocateCity: getLocateCity,
-      reLocat: reLocat
+      reLocat: reLocat,
+      setCurrentCity: function (data) {
+        Storage.set(citykey, data);
+      }
     }
   })
   //订单列表
@@ -356,7 +429,24 @@ angular.module('homeservice.services', [])
         });
       }
     };
-  }]);
+  }])
+
+  .factory('userData', ['Storage', function (Storage) {
+    var userkey = 'userinfo';
+    var user = Storage.get(userkey) || {};
+    return {
+      getCurrentUser: function () {
+        return user;
+      },
+      setCurrentUser: function (user) {
+        Storage.set(userkey, user);
+      },
+      LogOut: function () {
+        user = {};
+        Storage.remove(userkey);
+      }
+    }
+  }])
 
 
 

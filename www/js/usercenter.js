@@ -2,8 +2,9 @@
  * Created by gaowe on 2015/11/17.
  */
 angular.module('homeservice.usercenter', [])
+
   //用户登录
-  .controller('userlogin', function ($scope, $rootScope, $ionicPopup, $state, $location, ls, $resource, $interval, commontool, $timeout) {
+  .controller('userlogin', function ($scope, $rootScope, $ionicPopup, $state, $location, ls, $resource, $interval, commontool, $timeout, ENV,userData) {
 
     $scope.phonecheck = {userPhoneNO: '', userID: '', userCheckCode: ''};
     $scope.buttonText = {sendCheckcode: '发送验证码', sendLoginConfirm: '确定', secondCounter: 0, ifsend: false};
@@ -45,7 +46,7 @@ angular.module('homeservice.usercenter', [])
       }
       else {
         console.log('sendmatchno');
-        var resource = $resource("http://localhost:34413/SendSMSCheckCode");
+        var resource = $resource(ENV.server + 'SendSMSCheckCode');
         console.log($scope.phonecheck.userPhoneNO);
         resource.get({PhoneNO: $scope.phonecheck.userPhoneNO}, function (response) {
           console.log(response.ResponseStatus.isSuccess);
@@ -65,8 +66,7 @@ angular.module('homeservice.usercenter', [])
           }
         }, efn);
       }
-    }
-
+    };
     //确认登录
     $scope.ConfirmLogin = function () {
       //check
@@ -84,17 +84,15 @@ angular.module('homeservice.usercenter', [])
           function (suc) {
             if (suc.ResponseStatus.isSuccess) {
               //缓存返回的userid和验证码
-              $rootScope.phonecheck = {
+              $rootScope.UserData = {
                 userPhoneNO: $scope.phonecheck.userPhoneNO,
                 userID: suc.USERID,
                 userCheckCode: $scope.phonecheck.userCheckCode,
                 isLogin: true
               };
-
               console.log('登陆成功！！' + JSON.stringify(suc) + JSON.stringify($rootScope.phonecheck));
-
-              ls.set('userinfo', JSON.stringify($rootScope.phonecheck));
-
+              //设置缓存
+              userData.setCurrentUser($rootScope.UserData);
               $timeout(function () {
                   $ionicPopup.alert({
                     template: '登陆成功',
@@ -106,8 +104,6 @@ angular.module('homeservice.usercenter', [])
 
                 },
                 0);
-
-
             }
             else {
               $ionicPopup.alert({
@@ -123,23 +119,20 @@ angular.module('homeservice.usercenter', [])
             });
           }
         );
-
-
       }
     }
 
   })
   //个人中心
-  .controller('usercenter', function ($scope, $rootScope, $ionicPopup, $state, ls) {
-    if (!ls.getObject('userData', null)) {
-      console.log('false');
-      $scope.isLogin = false;
+  .controller('usercenter', function ($scope, $rootScope, $ionicPopup, $state, Storage,userData) {
+    var user=userData.getCurrentUser();
+    if(user.isLogin==undefined)
+    {
+      user.isLogin=false;
     }
-    else {
-      console.log('true');
-      $scope.isLogin = true;
-      $rootScope.UserData = ls.getObject('userData', null)
-    }
+    $rootScope.UserData=user;
+
+
     //编辑
     $scope.editplaces = function () {
       console.log('edit');
@@ -191,8 +184,10 @@ angular.module('homeservice.usercenter', [])
       $state.go('tab.userlogin');
     };
     $scope.logout = function () {
-      ls.setObject('userData', null);
-      $rootScope.UserData = ls.getObject('userData', null);
+      userData.LogOut();
+      $rootScope.UserData = {};
       $scope.isLogin = false;
     };
   })
+
+

@@ -7,7 +7,7 @@ angular.module('homeservice',
   ['ionic', 'ngResource','homeservice.controllers','homeservice.services','homeservice.common',
     'homeservice.homepage','homeservice.orders','homeservice.usercenter','homeservice.config'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -18,6 +18,25 @@ angular.module('homeservice',
       StatusBar.styleDefault();
     }
   });
+
+  $rootScope.requestErrorHandler = function(options, callback) {
+    return function(response) {
+      var error;
+      if (response.data && response.data.error_msg) {
+        error = errorMsg[response.data.error_msg];
+      } else {
+        error = errorMsg[response.status] || 'Error: ' + response.status + ' ' + response.statusText;
+      }
+      var o = options || {};
+      angular.extend(o, {
+        template: error,
+        duration: 1000
+      });
+      $ionicLoading.show(o);
+      return callback && callback();
+    };
+  };
+
 })
   .config(function($ionicConfigProvider)
   {

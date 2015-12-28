@@ -118,7 +118,7 @@ angular.module('homeservice.common', [])
     };
   })
   //城市选择弹出框
-  .controller('ModalCtrl', function ($rootScope, $scope, $ionicModal, CITIES,ls) {
+  .controller('ModalCtrl', function ($rootScope, $scope, $ionicModal, CITIES,ls,$log) {
 
 
     var locateCity = CITIES.getLocateCity();
@@ -137,8 +137,15 @@ angular.module('homeservice.common', [])
       return CITIES.getOpenCityList();
     };
     $scope.confirmLocate = function () {
-
-      ls.set('SCI',JSON.stringify($scope.selectCityInfo));
+      var  cc=CITIES.getSelectedCity();
+      if (cc.CITYID!=$scope.selectCityInfo.CITYID)
+      {
+        $log.debug('我要通知主页面刷新'+cc.CITYNAME+'变成了'+$scope.selectCityInfo.CITYNAME);
+        $log.debug('我要通知主页面刷新'+cc.CITYID+'变成了'+$scope.selectCityInfo.CITYID);
+        //刷新
+        $rootScope.$emit('servicehome.updateservicelist',$scope.selectCityInfo.CITYID);
+      }
+      CITIES.setCurrentCity($scope.selectCityInfo);
       $rootScope.cityInfo = {CITYID: $scope.selectCityInfo.CITYID, CITYNAME: $scope.selectCityInfo.CITYNAME};
       $scope.modal.hide();
     };
@@ -152,8 +159,8 @@ angular.module('homeservice.common', [])
     $scope.getLocateCity = function () {
       var locateCity = CITIES.getLocateCity();
       if (!isString(locateCity)) {
-        $scope.selectCityInfo.CITYID = locateCity.cityid;
-        $scope.selectCityInfo.CITYNAME = locateCity.cityname;
+        $scope.selectCityInfo.CITYID = locateCity.CITYID;
+        $scope.selectCityInfo.CITYNAME = locateCity.CITYNAME;
       }
     };
 
@@ -163,12 +170,24 @@ angular.module('homeservice.common', [])
       if ($scope.selectCityInfo.CITYID == -1) {
         console.log($scope.selectCityInfo.CITYID);
         var locateCity = CITIES.reLocat();
-        $scope.selectCityInfo.CITYID = locateCity.cityid;
-        $scope.selectCityInfo.CITYNAME = locateCity.cityname;
+        $scope.selectCityInfo.CITYID = locateCity.CITYID;
+        $scope.selectCityInfo.CITYNAME = locateCity.CITYNAME;
       }
       else {
         $scope.confirmLocate();
       }
+    }
+    $scope.closecitylocate = function () {
+      console.log('我要关闭窗口');
+      $scope.modal.hide();
+      var cachecity = CITIES.getSelectedCity();
+      //if (cachecity != null && cachecity.CITYID != undefined) {
+      //  if (cachecity.CITYID!=CITYID)
+      //  {
+      //    //如果选择的城市不同则刷新
+      //
+      //  }
+      //}
     }
   })
   //时间选择弹出框
@@ -218,8 +237,8 @@ angular.module('homeservice.common', [])
     };
 
     var createGetparam = function () {
-      if ($rootScope.UserData != null && $rootScope.UserData.userid != '' && $rootScope.UserData.matchno != '') {
-        return 'userid=' + $rootScope.UserData.userid + '&acode=' + $rootScope.UserData.matchno;
+      if ($rootScope.UserData != null && $rootScope.UserData.userID != '' && $rootScope.UserData.userCheckCode != '') {
+        return 'userid=' + $rootScope.UserData.userID + '&acode=' + $rootScope.UserData.userCheckCode;
       }
       else {
         return '';

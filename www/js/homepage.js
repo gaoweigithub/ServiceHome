@@ -24,27 +24,21 @@ angular.module('homeservice.homepage', [])
     }
   })
   //主页
-  .controller('homepage', function (ENV, $rootScope, $timeout, $ionicPopup, $scope, $resource, $ionicSlideBoxDelegate, $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, ls) {
+  .controller('homepage', function (ENV, $rootScope, $timeout, $ionicPopup, $scope, $resource, $ionicSlideBoxDelegate,
+                                    $ionicModal, Advertisement, SERVICE, RATE_PLAN, CITIES, $log) {
 
-    $rootScope.phonecheck = {userPhoneNO: undefined, userID: undefined, userCheckCode: undefined, isLogin: false};
-
-
-    var userinfo = JSON.parse(ls.get('userinfo', null));
-    console.log('有缓存的' + JSON.stringify(userinfo));
-    if (userinfo != null && userinfo.userID != '' && userinfo.userID != undefined) {
-      $rootScope.phonecheck = userinfo;
-    }
     var CITYID = -1;
-    //缓存
-    var cachecity = ls.get('SCI', null);
-    if (cachecity != '' && cachecity != null) {
-      CITYID = JSON.parse(cachecity).CITYID;
-      console.log('缓存的cityid是' + CITYID);
-    }
 
+    var cityinfo = CITIES.getSelectedCity();
+    if (cityinfo != null && cityinfo.CITYID != undefined) {
+      CITYID = cityinfo.CITYID;
+    }
     var getServiceList = function () {
-      if ($rootScope.phonecheck.userID != undefined && CITYID != -1) {
-        var url = "http://localhost:34413/GetCityService?userid=" + $rootScope.phonecheck.userID + "&acode=" + $rootScope.phonecheck.userCheckCode;
+
+      $log.debug('目标城市id' + CITYID);
+      if (CITYID != -1) {
+        var url = ENV.server + "/GetCityService";
+        $log.debug('草 我要请求的url' + url);
         return SERVICE.getAllBasicServiceList(url, CITYID).$promise.then(function (response) {
           console.log('哇结果出来了');
           console.log(response.ServiceList);
@@ -53,9 +47,16 @@ angular.module('homeservice.homepage', [])
         });
       }
       else {
+        $log.error('草 查询业务列表出问题了');
         return null;
       }
-    }
+    };
+
+    $rootScope.$on('servicehome.updateservicelist', function (event, data) {
+      $log.debug('城市id变成了' + data);
+      CITYID = data;
+      getServiceList();
+    })
 
     $scope.doRefresh = function () {
 
@@ -96,22 +97,20 @@ angular.module('homeservice.homepage', [])
       matchno: '2'
     }
     //缓存获取上次城市
-    var lastCity = ls.getObject('lastCity');
-    console.log('ccccc');
-    console.log(lastCity);
-    if (lastCity != null && lastCity.cityID != undefined) {
+    var lastCity = CITIES.getSelectedCity();
+    if (lastCity != null && lastCity.CITYID != undefined) {
       console.log('iiiii');
-      $rootScope.cityInfo = {cityID: lastCity.cityID, cityName: lastCity.cityName};
+      $rootScope.cityInfo = {CITYID: lastCity.CITYID, CITYNAME: lastCity.CITYNAME};
     }
     else {
       lastCity = CITIES.getLocateCity();
       console.log('ddddd');
       console.log(lastCity);
       $rootScope.cityInfo = lastCity;
-      ls.setObject('lastCity', lastCity);
+      CITIES.setCurrentCity(lastCity);
     }
 
-    console.log($rootScope.cityID);
+    console.log($rootScope.CITYID);
     console.log('homepage');
     $scope.advs = Advertisement.getAllAdvs();
 
@@ -136,18 +135,7 @@ angular.module('homeservice.homepage', [])
     $scope.opencitylocate = function () {
       $scope.modal.show();
     }
-    $scope.closecitylocate = function () {
-      console.log('我要关闭窗口');
-      $scope.modal.hide();
-      var cachecity = ls.get('SCI', null);
-      if (cachecity != null && cachecity.CITYID != undefined) {
-        if (cachecity.CITYID!=CITYID)
-        {
-          //如果选择的城市不同则刷新
-          getServiceList();
-        }
-      }
-    }
+
   })
   //业务计划列表
   .controller('serviceplanlist', function ($scope, $stateParams, SERVICE) {
@@ -160,7 +148,7 @@ angular.module('homeservice.homepage', [])
   //价格计划
   .controller('rateplan', function ($rootScope, $scope, $stateParams, RATE_PLAN, SERVICE, $state) {
     console.log($rootScope.hideTabs);
-    console.log($rootScope.cityID);
+    console.log($rootScope.CITYID);
     //选中的rateplanid
     $scope.SelectItem =
     {
@@ -225,7 +213,7 @@ angular.module('homeservice.homepage', [])
       console.log('allcost');
       console.log(newval);
     });
-    var getRateplan = RATE_PLAN.getRatePlanList(serviceplanid, $rootScope.cityID);
+    var getRateplan = RATE_PLAN.getRatePlanList(serviceplanid, $rootScope.CITYID);
     if (getRateplan != null && getRateplan.SERVICE_ITEMS != null) {
       console.log('rateplans');
       console.log(getRateplan);
