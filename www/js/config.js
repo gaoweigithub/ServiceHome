@@ -10,6 +10,6 @@ angular.module("homeservice.config", [])
     // "api": "http://localhost:3000/api/v1",
     appleId: '',
     version: '',
-    server: 'http://localhost:34413/',
+    server: 'http://127.0.0.1:1314/',
   })
 ;
